@@ -14,7 +14,7 @@ const Navbar = () => {
         <NavLink to="/pet_listing">Pet Listing</NavLink>
       </li>
       <li>
-        <NavLink to="/donation_campnings">Donation Campnings</NavLink>
+        <NavLink to="/donation_page">Donation Campnings</NavLink>
       </li>
       <li>
         <NavLink to="/contact">Contact</NavLink>
@@ -23,7 +23,7 @@ const Navbar = () => {
   );
   return (
     <>
-      <div className="navbar bg-base-100">
+      <div className="navbar ">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
