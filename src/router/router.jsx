@@ -4,6 +4,7 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import PetListing from "../pages/PetListing/PetListing";
+import PetDetails from "../pages/PetDetails/PetDetails";
 
 const router = createBrowserRouter([
   {
@@ -15,8 +16,12 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "pet_listing",
+        path: "/pet_listing",
         element: <PetListing />,
+      },
+      {
+        path: "/pet_detail",
+        element: <PetDetails />,
       },
     ],
   },

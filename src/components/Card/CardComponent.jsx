@@ -2,6 +2,7 @@ import { Card, CardHeader, CardBody } from "@material-tailwind/react";
 import { Badge, Button } from "flowbite-react";
 import { FaLocationDot } from "react-icons/fa6";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const CardComponent = ({ pet }) => {
   return (
@@ -25,7 +26,9 @@ const CardComponent = ({ pet }) => {
           </Badge>
         </div>
         <p className="text-gray-300 font-semibold mb-4 ml-1">6 month</p>
-        <Button>More About Burno</Button>
+        <Link to={"/pet_detail"}>
+          <Button>More About Burno</Button>
+        </Link>
       </CardBody>
     </Card>
   );
