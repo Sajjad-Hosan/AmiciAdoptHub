@@ -1,4 +1,5 @@
 import { Card } from "flowbite-react";
+import { Table } from "flowbite-react";
 
 const PetDetails = () => {
   return (
@@ -27,17 +28,48 @@ const PetDetails = () => {
             alt=""
           />
         </div>
-        <div className="h-[32rem] p-12 bg-white bg-opacity-30 rounded-2xl shadow">
-          <h1 className="text-6xl">Hi i'm Buruo</h1>
-          <p className="text-gray-800 w-11/12 mt-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci
-            itaque iste repudiandae at autem aut aspernatur non, esse pariatur
-            eum voluptates labore dolor unde, culpa nisi! Nesciunt eaque eum sit
-            ipsam voluptates, vel impedit adipisci nemo vero consequuntur quis
-            repellat neque error iusto animi consectetur commodi suscipit veniam
-            iure quae?
-          </p>
-          
+        <div className="h-[32rem] p-12 bg-white bg-opacity-30 rounded-2xl shadow flex flex-col justify-between">
+          <div className="">
+            <h1 className="text-6xl">Hi i'm Buruo</h1>
+            <p className="text-gray-800 w-11/12 mt-2">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci
+              itaque iste repudiandae at autem aut aspernatur non, esse pariatur
+              eum voluptates labore dolor unde, culpa nisi! Nesciunt eaque eum
+              sit ipsam voluptates, vel impedit adipisci nemo vero consequuntur
+              quis repellat neque error iusto animi consectetur commodi suscipit
+              veniam iure quae?
+            </p>
+          </div>
+          <div className="overflow-hidden max-w-screen-md rounded-xl">
+            <Table className="bg-base-100 bg-opacity-40">
+              <Table.Body className="divide-y text-black grid md:grid-cols-2 place-items-start">
+                <Table.Row>
+                  <Table.Cell className="font-semibold">Weight</Table.Cell>
+                  <Table.Cell className="font-semibold"></Table.Cell>
+                  <Table.Cell>45 pound</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell className="font-semibold">
+                    Date of Arrival
+                  </Table.Cell>
+                  <Table.Cell className="font-semibold"></Table.Cell>
+                  <Table.Cell>August 18 2023</Table.Cell>
+                </Table.Row>
+                <Table.Row className="flex">
+                  <Table.Cell className="font-semibold">Sex</Table.Cell>
+                  <Table.Cell className="font-semibold"></Table.Cell>
+                  <Table.Cell className="pl-11">Male </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell className="font-semibold">
+                    Adoption Fee
+                  </Table.Cell>
+                  <Table.Cell className="font-semibold"></Table.Cell>
+                  <Table.Cell>$420*</Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+          </div>
         </div>
       </div>
     </div>
