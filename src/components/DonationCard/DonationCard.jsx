@@ -8,6 +8,7 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import { Button } from "flowbite-react";
+import { Link } from "react-router-dom";
 const DonationCard = () => {
   return (
     <div>
@@ -27,17 +28,20 @@ const DonationCard = () => {
           <Typography variant="h2" color="blue-gray">
             Burno
           </Typography>
-         <span className="flex justify-between">
+          <span className="flex justify-between">
             <p className="font-semibold">Max Donate amount</p>
             <p className="text-red-500">$12000</p>
-         </span>
-         <span className="flex justify-between">
+          </span>
+          <span className="flex justify-between">
             <p className="font-semibold">Donated amount</p>
             <p className="text-green-500">$8000</p>
-         </span>
+          </span>
         </CardBody>
         <CardFooter className="flex items-center justify-end">
-          <Button color='dark'>View Detail</Button>
+          {/* TODO: id will ne added on the path name */}
+          <Link to="/donation_details">
+            <Button color="dark">View Detail</Button>
+          </Link>
         </CardFooter>
       </Card>
     </div>
