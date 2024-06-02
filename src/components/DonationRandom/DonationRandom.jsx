@@ -1,5 +1,6 @@
 import RandomCard from "../RandomCard/RandomCard";
 
+// TODO: random card show
 const DonationRandom = () => {
   return (
     <div className="mt-16">

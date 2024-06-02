@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@material-tailwind/react": "^2.1.9",
+    "@stripe/react-stripe-js": "^2.7.1",
+    "@stripe/stripe-js": "^3.4.1",
     "firebase": "^10.12.2",
     "flowbite-react": "^0.9.0",
     "localforage": "^1.10.0",
