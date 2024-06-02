@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+    display: none;
+}
+.petCard img {
+    transition: all 0.3s;
+}
+.petCard:hover img {
+    transform: scale(1.2);
+}
+.petCardContext {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.3s;
+}
+.petCard:hover .petCardContext {
+    opacity: 1;
+}
+.storiesCard {
+    transition: all 0.3s;
+}
+.storiesCard:hover {
+    transform: rotate(4deg);
+}
+.StorieContext {
+    height: 0;
+    transform: translate(400px, 0);
+    transition: all 0.4s;
+}
+.storiesCard:hover .StorieContext {
+    height: 100%;
+    transform: translate(0px, 0);
+}
+.cardContext {
+    bottom: -130px;
+    /* opacity: 0; */
+    transition: all 0.3s;
+}
+.cardImage:hover .cardContext {
+    bottom: 0px;
+    opacity: 1;
+}
