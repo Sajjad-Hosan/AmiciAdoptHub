@@ -16,7 +16,7 @@ const PetDetails = () => {
     <>
       <AdoptMeModal open={openModal} setOpen={setOpenModal} />
       {/* ------------------- */}
-      <div className="p-10">
+      <div className="md:p-10">
         <div className="w-full h-[25rem] bg-orange-300 rounded-2xl p-10 flex flex-col items-center justify-center gap-3 relative">
           <h1 className="text-5xl">
             Meet <span className="text-red-500 font-semibold">Burno</span>
@@ -41,7 +41,7 @@ const PetDetails = () => {
               alt=""
             />
           </div>
-          <div className="h-[32rem] p-12 bg-white bg-opacity-30 rounded-2xl shadow flex flex-col justify-between">
+          <div className="md:h-[35rem] p-12 bg-white bg-opacity-30 rounded-2xl shadow flex flex-col justify-between">
             <div className="">
               <h1 className="text-6xl">Hi i'm Buruo</h1>
               <p className="text-gray-800 w-11/12 mt-2">
@@ -53,7 +53,7 @@ const PetDetails = () => {
                 consectetur commodi suscipit veniam iure quae?
               </p>
             </div>
-            <div className="overflow-hidden max-w-screen-md rounded-xl">
+            <div className="overflow-hidden max-w-screen-md rounded-xl mt-5">
               <Table className="bg-base-100 bg-opacity-40">
                 <Table.Body className="divide-y text-black grid md:grid-cols-2 place-items-start">
                   <Table.Row>
@@ -83,7 +83,7 @@ const PetDetails = () => {
                 </Table.Body>
               </Table>
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-end mt-5">
               <Button
                 className="px-10"
                 size="lg"

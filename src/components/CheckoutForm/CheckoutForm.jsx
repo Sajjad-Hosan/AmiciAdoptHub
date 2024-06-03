@@ -1,5 +1,6 @@
-import "./common.css";
+import { Input } from "@material-tailwind/react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { Button } from "flowbite-react";
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
@@ -26,8 +27,12 @@ const CheckoutForm = () => {
   };
   return (
     <>
-      <form onSubmit={handlePayment} className="space-y-4">
-        <input placeholder="Donation amount"></input>
+      <form onSubmit={handlePayment} className="space-y-6">
+        <Input
+          variant="standard"
+          label="Donation amount"
+          placeholder="amount"
+        />
         <CardElement
           options={{
             style: {
@@ -44,7 +49,7 @@ const CheckoutForm = () => {
             },
           }}
         />
-        <button>Donation now</button>
+        <Button color="success">Donation now</Button>
       </form>
     </>
   );

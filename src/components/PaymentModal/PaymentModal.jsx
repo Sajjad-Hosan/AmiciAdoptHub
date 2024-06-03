@@ -27,7 +27,7 @@ const PaymentModal = ({ open, setOpen }) => {
       >
         <DialogHeader />
         <DialogBody className="p-10">
-          <h1 className="text-2xl">Payment</h1>
+          <h1 className="text-2xl mb-2">Payment</h1>
           <Elements stripe={stripePromise}>
             <CheckoutForm />
           </Elements>

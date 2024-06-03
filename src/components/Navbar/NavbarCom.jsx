@@ -3,7 +3,16 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import ProfileNav from "../ProfileNav/ProfileNav";
 
-const Navbar = () => {
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarCollapse,
+  NavbarLink,
+  NavbarToggle,
+} from "flowbite-react";
+import Title from "../Title/Title";
+
+const NavbarCom = () => {
   const { user } = useAuth();
   const navList = (
     <>
@@ -23,7 +32,7 @@ const Navbar = () => {
   );
   return (
     <>
-      <div className="navbar ">
+      <div className="navbar bg-transparent">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -46,21 +55,21 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-20 p-2 shadow bg-base-100 rounded-box w-52 space-y-2"
             >
-              {navList}
+              {navList}{" "}
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost text-xl">
-            <img src="/logo.png" alt="" className="w-8" /> AmiciAdoptHub
+            <Title />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 space-x-2">{navList} </ul>
+          <ul className="menu menu-horizontal px-1 space-x-2">{navList}</ul>
         </div>
         <div className="navbar-end">
           {user ? (
             <ProfileNav />
           ) : (
-            <Link to="login" className="btn btn-neutral px-8">
+            <Link to="/login" className="btn btn-outline px-10">
               <FaUser /> Login
             </Link>
           )}
@@ -70,4 +79,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarCom;

@@ -35,9 +35,9 @@ const AdoptMeModal = ({ open, setOpen }) => {
         ) : (
           <>
             <Modal.Header className="p-6">Burno</Modal.Header>
-            <div className="p-8">
-              <Modal.Body className="flex flex-col md:flex-row justify-between items-center">
-                <form className="flex max-w-md flex-col gap-4">
+            <div className="md:p-8 overflow-y-scroll">
+              <Modal.Body className="flex flex-col-reverse md:flex-row justify-between items-center">
+                <form className="flex flex-col gap-4 w-full">
                   <div className="grid md:grid-cols-2 gap-8">
                     <div>
                       <div className="mb-2 block">
@@ -84,7 +84,7 @@ const AdoptMeModal = ({ open, setOpen }) => {
                     </div>
                   </div>
                 </form>
-                <Card className="w-96 p-2">
+                <Card className="w-96 p-2 mb-4">
                   <CardHeader floated={false} className="">
                     <img
                       src="https://docs.material-tailwind.com/img/team-3.jpg"

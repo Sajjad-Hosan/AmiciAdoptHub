@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar";
+import NavbarCom from "../../components/Navbar/NavbarCom";
 import Welcome from "../Welcome/Welcome";
 import useAuth from "../../hooks/useAuth";
 import FooterPlat from "../../components/Footer/Footer";
@@ -12,7 +12,7 @@ const Root = () => {
   return (
     <div className="pt-2 font-mono">
       <div className="px-5">
-        <Navbar />
+        <NavbarCom />
         <Outlet />
       </div>
       <FooterPlat />

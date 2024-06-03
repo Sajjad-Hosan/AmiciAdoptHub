@@ -16,8 +16,8 @@ const DonationDetails = () => {
   };
   return (
     <>
-    <PaymentModal open={openModal} setOpen={setOpenModal}/>
-      <div className="p-10">
+      <PaymentModal open={openModal} setOpen={setOpenModal} />
+      <div className="md:p-10 mt-10">
         <div className="fixed top-0 left-0 -z-10">
           <img
             src="https://templatekit.jegtheme.com/pawsnest/wp-content/uploads/sites/417/2023/10/rescue-dog-animal-shelter-and-puppy-playing-alone-2023-01-06-17-06-59-utc.jpg"
@@ -27,7 +27,7 @@ const DonationDetails = () => {
         </div>
         <div className="h-[30rem] bg-white bg-opacity-50 p-10 flex flex-col items-center justify-center gap-4 rounded-3xl">
           <h1 className="text-5xl text-center capitalize">Help Bornu</h1>
-          <h2 className="text-3xl capitalize">
+          <h2 className="text-2xl capitalize">
             Give him/her a Brighter Future
           </h2>
           <p className="text-center">
@@ -39,7 +39,7 @@ const DonationDetails = () => {
             for pets in need!
           </p>
         </div>
-        <div className="h-[38rem] bg-white bg-opacity-40 mt-32 p-10 flex flex-col md:flex-row justify-between">
+        <div className="md:h-[38rem] bg-white bg-opacity-40 mt-32 p-5 md:p-10 flex flex-col md:flex-row justify-between">
           <div className="md:w-1/2 rounded-2xl shadow h-full overflow-hidden">
             <img
               className="h-full w-full object-cover"
@@ -47,7 +47,7 @@ const DonationDetails = () => {
               alt=""
             />
           </div>
-          <div className="px-14 py-10 w-full space-y-3 relative">
+          <div className="px-4 md:px-14 py-10 w-full space-y-3 relative">
             <div className="px-9 py-2 border rounded-full font-semibold absolute right-3">
               {dog.age}
             </div>
@@ -67,6 +67,7 @@ const DonationDetails = () => {
             </div>
           </div>
         </div>
+        {/* ALERT: this compoent will show more need donation cards randomly */}
         <DonationRandom />
       </div>
     </>
