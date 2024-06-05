@@ -1,11 +1,19 @@
 import { Select } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { VscSearch } from "react-icons/vsc";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import CardComponent from "../../components/Card/CardComponent";
 import { Button, Tooltip } from "@material-tailwind/react";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 const PetListing = () => {
+  const axiosPublic = useAxiosPublic();
   const [openModal, setOpenModal] = useState(false);
+  const [lists, setLists] = useState([]);
+  useEffect(() => {
+    axiosPublic.get("/pets").then((res) => {
+      setLists(res.data);
+    });
+  }, [axiosPublic]);
   return (
     <>
       <SearchBox open={openModal} setOpen={setOpenModal} />
@@ -33,19 +41,18 @@ const PetListing = () => {
             <div className="">
               <Select id="countries" required>
                 <option disabled>Category</option>
-                <option>United States</option>
-                <option>Canada</option>
-                <option>France</option>
-                <option>Germany</option>
+                <option value='date'>Date</option>
+                <option value='time'>Time</option>
+                <option value='name'>Name</option>
+                <option disabled>Coming soon</option>
               </Select>
             </div>
           </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-5 mt-16">
-          <CardComponent />
-          <CardComponent />
-          <CardComponent />
-          <CardComponent />
+        <div className="grid md:grid-cols-3 gap-10 mt-16">
+          {lists.map((list) => (
+            <CardComponent key={list._id} pet={list} />
+          ))}
         </div>
       </div>
     </>

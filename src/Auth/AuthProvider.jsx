@@ -11,12 +11,14 @@ import {
 import { createContext, useEffect, useState } from "react";
 import app from "../service/firebase/firebase";
 import PropTypes from "prop-types";
+import { toast } from "sonner";
 
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
   const [user, setUser] = useState(false);
   const [moment, setMoment] = useState(false);
+
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
   useEffect(() => {
@@ -28,7 +30,7 @@ const AuthProvider = ({ children }) => {
       setUser(currentMe);
     });
     return () => unSubscribe();
-  }, []);
+  }, [auth]);
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -44,6 +46,9 @@ const AuthProvider = ({ children }) => {
   const github = () => {
     return signInWithPopup(auth, githubProvider);
   };
+  const handleCooking = (title) => {
+    return toast.warning(title);
+  };
   const contextProvider = {
     user,
     moment,
@@ -53,6 +58,7 @@ const AuthProvider = ({ children }) => {
     signOutUser,
     google,
     github,
+    handleCooking,
   };
 
   // ---------------------------------------------------

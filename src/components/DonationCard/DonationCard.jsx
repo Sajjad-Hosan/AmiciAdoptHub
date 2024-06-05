@@ -9,7 +9,26 @@ import {
 } from "@material-tailwind/react";
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
-const DonationCard = () => {
+import PropTypes from "prop-types";
+import { Helmet } from "react-helmet-async";
+
+const DonationCard = ({ donated }) => {
+  const {
+    _id,
+    image,
+    maxDonationAmount,
+    highestDonationAmount,
+    shortDescription,
+    description,
+    lastDate,
+    userName,
+    userEmail,
+    createDate,
+    createTime,
+    pause,
+    currentDonation,
+    petName,
+  } = donated;
   return (
     <div>
       <Card className="max-w-[24rem] overflow-hidden">
@@ -17,29 +36,39 @@ const DonationCard = () => {
           floated={false}
           shadow={false}
           color="transparent"
-          className="m-0 rounded-none"
+          className="m-0 rounded-none h-[350px] w-full"
         >
           <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
+            src={image}
             alt="ui/ux review check"
+            className="h-full w-full object-cover object-center"
           />
         </CardHeader>
         <CardBody className="space-y-2">
           <Typography variant="h2" color="blue-gray">
-            Burno
+            {petName}
           </Typography>
           <span className="flex justify-between">
-            <p className="font-semibold">Max Donate amount</p>
-            <p className="text-red-500">$12000</p>
+            {currentDonation > maxDonationAmount ? (
+              <>
+                <p className="font-semibold">Highest amount</p>
+                <p className="text-red-500">${highestDonationAmount}</p>
+              </>
+            ) : (
+              <>
+                <p className="font-semibold">Max Donate amount</p>
+                <p className="text-red-500">${maxDonationAmount}</p>
+              </>
+            )}
           </span>
           <span className="flex justify-between">
             <p className="font-semibold">Donated amount</p>
-            <p className="text-green-500">$8000</p>
+            <p className="text-green-500">${currentDonation}</p>
           </span>
         </CardBody>
         <CardFooter className="flex items-center justify-end">
           {/* TODO: id will ne added on the path name */}
-          <Link to="/donation_details">
+          <Link to={`/donation_details/${_id}`}>
             <Button color="dark">View Detail</Button>
           </Link>
         </CardFooter>
@@ -47,5 +76,7 @@ const DonationCard = () => {
     </div>
   );
 };
-
+DonationCard.propTypes = {
+  donated: PropTypes.object,
+};
 export default DonationCard;

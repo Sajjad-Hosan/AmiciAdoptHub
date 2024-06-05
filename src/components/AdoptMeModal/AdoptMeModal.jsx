@@ -3,21 +3,40 @@ import { Button, Label, Modal, TextInput } from "flowbite-react";
 import PropTypes from "prop-types";
 import Loading from "../Loading/Loading";
 import useLoading from "../../hooks/useLoading";
-/**
- * pet id
- * pet name
- * pet image
- * user name
- * user email
- * user address
- * user phone number
- * this will goto database
- */
-const AdoptMeModal = ({ open, setOpen }) => {
+import useAuth from "../../hooks/useAuth";
+import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { toast } from "sonner";
+
+const AdoptMeModal = ({ open, setOpen, pet }) => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const { register, handleSubmit } = useForm();
+  const { _id, image, petName } = pet;
   const [loading, setLoading] = useLoading();
   const handleClicks = (bool) => {
     setLoading(true);
     setOpen(bool);
+  };
+  const handleAdoptMe = (i) => {
+    const petAdopt = {
+      petId: _id,
+      petName: petName,
+      image: image,
+      userName: user?.displayName,
+      userEmail: user?.email,
+      usePhone: i.userPhone,
+      userAddress: i.userAddress,
+    };
+    // send adoptdata to database
+    axiosSecure.post("/pet_adopt_me", petAdopt).then((res) => {
+      if (res.data.warn) {
+        return toast.warning(res.data.warn);
+      }
+      if (res.data.insertedId) {
+        toast.success("Pet has been adopted!");
+      }
+    });
   };
   return (
     <div>
@@ -34,22 +53,25 @@ const AdoptMeModal = ({ open, setOpen }) => {
           </>
         ) : (
           <>
-            <Modal.Header className="p-6">Burno</Modal.Header>
+            <Modal.Header className="p-6">{petName}</Modal.Header>
             <div className="md:p-8 overflow-y-scroll">
-              <Modal.Body className="flex flex-col-reverse md:flex-row justify-between items-center">
-                <form className="flex flex-col gap-4 w-full">
+              <Modal.Body className="flex flex-col-reverse md:flex-row gap-10 items-center">
+                <form
+                  className="flex flex-col gap-4 w-full"
+                  onSubmit={handleSubmit(handleAdoptMe)}
+                >
                   <div className="grid md:grid-cols-2 gap-8">
                     <div>
                       <div className="mb-2 block">
                         <Label value="Pet Id" />
                       </div>
-                      <TextInput type="text" value={"Burno"} readOnly />
+                      <TextInput type="text" value={_id} readOnly />
                     </div>
                     <div>
                       <div className="mb-2 block">
                         <Label value="Pet Name" />
                       </div>
-                      <TextInput type="text" value={"Burno"} readOnly />
+                      <TextInput type="text" value={petName} readOnly />
                     </div>
                   </div>
                   <div className="grid md:grid-cols-2 gap-8">
@@ -57,16 +79,13 @@ const AdoptMeModal = ({ open, setOpen }) => {
                       <div className="mb-2 block">
                         <Label value="Name" />
                       </div>
-                      <TextInput type="text" defaultValue={"Sajjad Hosan"} />
+                      <TextInput type="text" defaultValue={user?.displayName} />
                     </div>
                     <div>
                       <div className="mb-2 block">
                         <Label value="Email" />
                       </div>
-                      <TextInput
-                        type="text"
-                        defaultValue={"sajjadhosan12@gmail.com"}
-                      />
+                      <TextInput type="text" defaultValue={user?.email} />
                     </div>
                   </div>
                   <div className="grid md:grid-cols-2 gap-8">
@@ -74,28 +93,35 @@ const AdoptMeModal = ({ open, setOpen }) => {
                       <div className="mb-2 block">
                         <Label value="Phone Number" />
                       </div>
-                      <TextInput type="text" defaultValue={"0123456789"} />
+                      <TextInput
+                        type="text"
+                        placeholder="phone number"
+                        {...register("userPhone", { required: true })}
+                      />
                     </div>
                     <div>
                       <div className="mb-2 block">
                         <Label value="Address" />
                       </div>
-                      <TextInput type="text" defaultValue={"Nilphamari,BD"} />
+                      <TextInput
+                        type="text"
+                        placeholder="address"
+                        {...register("userAddress", { required: true })}
+                      />
                     </div>
+                  </div>
+                  <div className="mt-6">
+                    <Button type="submit" color="dark" className="px-10">
+                      Adopt Me
+                    </Button>
                   </div>
                 </form>
                 <Card className="w-96 p-2 mb-4">
                   <CardHeader floated={false} className="">
-                    <img
-                      src="https://docs.material-tailwind.com/img/team-3.jpg"
-                      alt="profile-picture"
-                    />
+                    <img src={image} alt={image} />
                   </CardHeader>
                 </Card>
               </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={() => setOpen(false)}>I accept</Button>
-              </Modal.Footer>
             </div>
           </>
         )}
@@ -106,5 +132,6 @@ const AdoptMeModal = ({ open, setOpen }) => {
 AdoptMeModal.propTypes = {
   open: PropTypes.bool,
   setOpen: PropTypes.func,
+  pet: PropTypes.object,
 };
 export default AdoptMeModal;

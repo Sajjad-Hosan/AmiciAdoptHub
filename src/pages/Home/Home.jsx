@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import About from "../../components/About/About";
 import CallToAction from "../../components/CallToAction/CallToAction";
 import Community from "../../components/Community/Community";
@@ -7,8 +8,10 @@ import Sliders from "../../components/Sliders/Sliders";
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>Home | AAH</title>
+      </Helmet>
       <Sliders />
-
       <PetsCategory />
       <CallToAction />
       <About />

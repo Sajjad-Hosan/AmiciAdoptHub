@@ -2,14 +2,6 @@ import { FaUser } from "react-icons/fa6";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import ProfileNav from "../ProfileNav/ProfileNav";
-
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarCollapse,
-  NavbarLink,
-  NavbarToggle,
-} from "flowbite-react";
 import Title from "../Title/Title";
 
 const NavbarCom = () => {
@@ -53,7 +45,7 @@ const NavbarCom = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-20 p-2 shadow bg-base-100 rounded-box w-52 space-y-2"
+              className="menu menu-sm dropdown-content mt-3 z-20 p-4 shadow bg-base-100 rounded-box w-52 space-y-2"
             >
               {navList}{" "}
             </ul>

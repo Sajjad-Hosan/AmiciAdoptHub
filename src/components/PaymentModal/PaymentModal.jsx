@@ -12,12 +12,13 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 
-const PaymentModal = ({ open, setOpen }) => {
-  const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
+const PaymentModal = ({ open, setOpen, pet, refetch }) => {
+  const stripePromise = loadStripe(import.meta.env.VITE_STR_PUB);
 
   return (
     <>
       <Dialog
+        className="absolute"
         open={open}
         handler={() => setOpen(!open)}
         animate={{
@@ -29,7 +30,7 @@ const PaymentModal = ({ open, setOpen }) => {
         <DialogBody className="p-10">
           <h1 className="text-2xl mb-2">Payment</h1>
           <Elements stripe={stripePromise}>
-            <CheckoutForm />
+            <CheckoutForm pet={pet} refetch={refetch} />
           </Elements>
         </DialogBody>
       </Dialog>
@@ -39,5 +40,7 @@ const PaymentModal = ({ open, setOpen }) => {
 PaymentModal.propTypes = {
   open: PropTypes.bool,
   setOpen: PropTypes.func,
+  pet: PropTypes.object,
+  refetch: PropTypes.func,
 };
 export default PaymentModal;

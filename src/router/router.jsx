@@ -10,6 +10,12 @@ import DonationDetails from "../pages/DonationDetails/DonationDetails";
 import Dashboard from "../layouts/Dashboard/Dashboard";
 import AddPet from "../dashBoardPages/AddPet/AddPet";
 import AddedPets from "../dashBoardPages/AddedPets/AddedPets";
+import PetUpdate from "../dashBoardPages/PetUpdate/PetUpdate";
+import CreateCamPaign from "../dashBoardPages/CreateCamPaign/CreateCamPaign";
+import DonationCampaigns from "../dashBoardPages/DonationCampaigns/DonationCampaigns";
+import CampaignUpdate from "../dashBoardPages/CampaignUpdate/CampaignUpdate";
+import useAuth from "../hooks/useAuth";
+import MyDonations from "../dashBoardPages/MyDonations/MyDonations";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +32,9 @@ const router = createBrowserRouter([
       },
       {
         // TODO: id will be add on the path name
-        path: "/pet_detail",
+        path: "/pet_detail/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:1000/pet_info/${params.id}`),
         element: <PetDetails />,
       },
       {
@@ -35,7 +43,7 @@ const router = createBrowserRouter([
       },
       {
         // TODO: Id will be on the path name
-        path: "/donation_details",
+        path: "/donation_details/:id",
         element: <DonationDetails />,
       },
     ],
@@ -52,6 +60,36 @@ const router = createBrowserRouter([
       {
         path: "added_pets",
         element: <AddedPets />,
+      },
+      {
+        path: "pet_details/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:1000/pet_info/${params.id}`),
+        element: <PetDetails />,
+      },
+      {
+        path: "pet_update/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:1000/pet_info/${params.id}`),
+        element: <PetUpdate />,
+      },
+      {
+        path: "create_campaign",
+        element: <CreateCamPaign />,
+      },
+      {
+        path: "donation_campaign",
+        element: <DonationCampaigns />,
+      },
+      {
+        path: "campaign_update/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:1000/donation_info/${params.id}`),
+        element: <CampaignUpdate />,
+      },
+      {
+        path: "my_donations",
+        element: <MyDonations />,
       },
       // admin pages routes
     ],

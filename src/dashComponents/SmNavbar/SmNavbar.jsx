@@ -1,52 +1,41 @@
 import {
+  Drawer,
   Button,
-  Card,
+  Typography,
+  IconButton,
   List,
   ListItem,
   ListItemPrefix,
+  ListItemSuffix,
+  Chip,
 } from "@material-tailwind/react";
 import { HomeIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { MdOutlinePets } from "react-icons/md";
 import { LuLeaf } from "react-icons/lu";
 import { FaPersonWalkingDashedLineArrowRight } from "react-icons/fa6";
-import { useState } from "react";
+
 import Title from "../../components/Title/Title";
-import { Link, Outlet, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import { toast } from "sonner";
-import UserNav from "../../dashComponents/UserNav/UserNav";
-import SmNavbar from "../../dashComponents/SmNavbar/SmNavbar";
-import { HiOutlineViewGrid } from "react-icons/hi";
-const Dashboard = () => {
-  const { user, signOutUser } = useAuth();
+import { HiXMark } from "react-icons/hi2";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import UserNav from "../UserNav/UserNav";
+const SmNavbar = ({ open, setOpen }) => {
   const [admin, setAdmin] = useState(false);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    signOutUser().then(() => {
-      toast.success("Logout");
-      navigate("/");
-    });
-  };
-
-  const [open, setOpen] = useState(false);
-  const openDrawer = () => setOpen(true);
+  const closeDrawer = () => setOpen(false);
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="flex md:hidden justify-between z-20 items-center px-6 py-3">
-        <Button variant="outlined" onClick={openDrawer}>
-          <HiOutlineViewGrid className="text-lg" />
-        </Button>
-        <Title />
-      </div>
-      <SmNavbar open={open} setOpen={setOpen} />
-      <Card className="w-full max-w-[15rem] p-3 border-r-2 rounded-none overflow-hidden hidden md:flex">
-        <div className="mb-2 flex items-center gap-4 p-4">
+    <>
+      <Drawer open={open} onClose={closeDrawer}>
+        <div className="mb-2 flex items-center justify-between p-4">
           <Title />
+          <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
+            <HiXMark className="text-xl" />
+          </IconButton>
         </div>
+        <hr className="my-2 border-blue-gray-50" />
+
+        {admin ? "" : <UserNav />}
         <List>
-          {admin ? "" : <UserNav />}
-          <hr className="my-2 border-blue-gray-50" />
+        <hr className="my-2 border-blue-gray-50" />
           <Link to="/">
             <ListItem>
               <ListItemPrefix>
@@ -80,21 +69,18 @@ const Dashboard = () => {
               Profile
             </ListItem>
           </Link>
-          <ListItem onClick={handleLogout}>
+          <ListItem
+          // onClick={handleLogout}
+          >
             <ListItemPrefix>
               <FaPersonWalkingDashedLineArrowRight />
             </ListItemPrefix>
             Logout
           </ListItem>
         </List>
-      </Card>
-      <div className="overflow-scroll w-full h-[42.3rem]">
-        <div className="overflow-hidden">
-          <Outlet />
-        </div>
-      </div>
-    </div>
+      </Drawer>
+    </>
   );
 };
 
-export default Dashboard;
+export default SmNavbar;
