@@ -16,29 +16,20 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import { Badge } from "flowbite-react";
-import { useState } from "react";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import useAuth from "../../hooks/useAuth";
-//
 const TABLE_HEAD = ["#", "Image", "Name", "Category", "Status", "Action"];
 
 const AddedPetsTable = ({ myPets, petRef }) => {
-  const { handleCooking } = useAuth();
-  const [isAdopt, setIsAdopt] = useState([]);
   const axiosSecure = useAxiosSecure();
-  const handleAdopted = (id) => {
-    if (isAdopt.find((i) => i.id === id)) {
-      toast.warning("The pet is already adopted!");
-      return;
-    }
-    setIsAdopt([id, ...isAdopt]);
+
+  const handleAdopted = (bool, item) => {
     // update some proparty
     const update = {
-      adopted: true,
+      adopted: bool,
     };
-    axiosSecure.patch(`/update_pet_status/${id}`, update).then((res) => {
+    axiosSecure.patch(`/update_pet_status/${item._id}`, update).then((res) => {
       console.log("update", res.data);
       petRef();
     });
@@ -72,7 +63,7 @@ const AddedPetsTable = ({ myPets, petRef }) => {
               </tr>
             </thead>
             <tbody>
-              {myPets?.map(({ _id, image, petName, adopted }, index) => {
+              {myPets?.map((item, index) => {
                 const isLast = index === myPets.length - 1;
                 const classes = isLast
                   ? "p-4"
@@ -84,8 +75,8 @@ const AddedPetsTable = ({ myPets, petRef }) => {
                     <td className={classes}>
                       <div className="flex items-center gap-3">
                         <Avatar
-                          src={image}
-                          alt={petName}
+                          src={item.image}
+                          alt={item.petName}
                           size="md"
                           variant="rounded"
                         />
@@ -97,7 +88,7 @@ const AddedPetsTable = ({ myPets, petRef }) => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {petName}
+                        {item.petName}
                       </Typography>
                     </td>
                     <td className={classes}>category</td>
@@ -107,7 +98,7 @@ const AddedPetsTable = ({ myPets, petRef }) => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {adopted ? (
+                        {item.adopted ? (
                           <Badge className="py-3 capitalize" color="green">
                             adopted
                           </Badge>
@@ -120,7 +111,7 @@ const AddedPetsTable = ({ myPets, petRef }) => {
                     </td>
                     <td className={`space-x-3 ${classes}`}>
                       <Tooltip content="Edit Pet">
-                        <Link to={`/dashboard/pet_update/${_id}`}>
+                        <Link to={`/dashboard/pet_update/${item._id}`}>
                           <IconButton variant="text">
                             <PencilIcon className="h-4 w-4" />
                           </IconButton>
@@ -129,18 +120,16 @@ const AddedPetsTable = ({ myPets, petRef }) => {
                       <Tooltip content="Delete Pet">
                         <IconButton
                           variant="text"
-                          onClick={() => handleDelete(_id)}
+                          onClick={() => handleDelete(item._id)}
                         >
                           <TrashIcon className="h-4 w-4" />
                         </IconButton>
                       </Tooltip>
-                      {adopted ? (
+                      {item.adopted ? (
                         <Tooltip content="Alert">
                           <IconButton
                             variant="text"
-                            onClick={() =>
-                              handleCooking("This is already adopted!")
-                            }
+                            onClick={() => handleAdopted(false, item)}
                           >
                             <XMarkIcon className="h-4 w-4" />
                           </IconButton>
@@ -149,7 +138,7 @@ const AddedPetsTable = ({ myPets, petRef }) => {
                         <Tooltip content="Adopted">
                           <IconButton
                             variant="text"
-                            onClick={() => handleAdopted(_id)}
+                            onClick={() => handleAdopted(true, item)}
                           >
                             <CheckCircleIcon className="h-4 w-4" />
                           </IconButton>

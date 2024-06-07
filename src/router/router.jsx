@@ -16,6 +16,8 @@ import DonationCampaigns from "../dashBoardPages/DonationCampaigns/DonationCampa
 import CampaignUpdate from "../dashBoardPages/CampaignUpdate/CampaignUpdate";
 import useAuth from "../hooks/useAuth";
 import MyDonations from "../dashBoardPages/MyDonations/MyDonations";
+import AdoptedRequest from "../dashBoardPages/AdoptedRequest/AdoptedRequest";
+import AdminUsers from "../dashBoardPages/AdminUsers/AdminUsers";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,12 @@ const router = createBrowserRouter([
         path: "/donation_details/:id",
         element: <DonationDetails />,
       },
+      {
+        path: "/pet_update/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:1000/pet_info/${params.id}`),
+        element: <PetUpdate />,
+      },
     ],
   },
   {
@@ -60,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "added_pets",
         element: <AddedPets />,
+      },
+      {
+        path: "adoption_request",
+        element: <AdoptedRequest />,
       },
       {
         path: "pet_details/:id",
@@ -92,6 +104,10 @@ const router = createBrowserRouter([
         element: <MyDonations />,
       },
       // admin pages routes
+      {
+        path: "admin_users",
+        element: <AdminUsers />,
+      },
     ],
   },
   {

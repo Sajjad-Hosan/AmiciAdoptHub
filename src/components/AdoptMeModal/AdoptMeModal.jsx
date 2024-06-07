@@ -7,11 +7,13 @@ import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const AdoptMeModal = ({ open, setOpen, pet }) => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+  const { register, handleSubmit, reset } = useForm();
   const { _id, image, petName } = pet;
   const [loading, setLoading] = useLoading();
   const handleClicks = (bool) => {
@@ -22,19 +24,24 @@ const AdoptMeModal = ({ open, setOpen, pet }) => {
     const petAdopt = {
       petId: _id,
       petName: petName,
+      adoption: false,
       image: image,
       userName: user?.displayName,
       userEmail: user?.email,
-      usePhone: i.userPhone,
+      userPhone: i.userPhone,
       userAddress: i.userAddress,
     };
     // send adoptdata to database
     axiosSecure.post("/pet_adopt_me", petAdopt).then((res) => {
       if (res.data.warn) {
+        reset();
+        navigate(-1);
         return toast.warning(res.data.warn);
       }
       if (res.data.insertedId) {
         toast.success("Pet has been adopted!");
+        navigate(-1);
+        reset();
       }
     });
   };
@@ -46,6 +53,7 @@ const AdoptMeModal = ({ open, setOpen, pet }) => {
         onClose={() => handleClicks(false)}
         size="5xl"
         popup
+        className="z-50"
       >
         {loading ? (
           <>

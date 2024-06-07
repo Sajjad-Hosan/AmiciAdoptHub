@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff, FiLogIn } from "react-icons/fi";
+import { FileInput, Label } from "flowbite-react";
+import { LuImagePlus } from "react-icons/lu";
 import { GiJumpingDog } from "react-icons/gi";
 import Socials from "../../components/Socials/Socials";
 import { Helmet } from "react-helmet-async";
@@ -9,93 +11,209 @@ import Title from "../../components/Title/Title";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { updateProfile } from "firebase/auth";
+import {
+  Card,
+  Input,
+  Checkbox,
+  Button,
+  Typography,
+  Tooltip,
+} from "@material-tailwind/react";
+import ImageModal from "./ImageModal";
+import { toast } from "sonner";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 const Register = () => {
-  const { register, handleSubmit } = useForm();
-  const { createUser } = useAuth();
-  const [type, setType] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const { createUser, isImage, isPro, setIsPro } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const [show, setShow] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (log) => {
+  const handleCreate = (log) => {
     //TODO: Api use for picture add and then use
-    createUser(log.email, log.password).then((res) => {
-        console.log(log.photo[0])
-      updateProfile(res.user, {
-        displayName: log.name,
-        photoURL: log.photo.image[0],
-      }).then(() => {
-          navigate("/");
+    createUser(log.email, log.password)
+      .then((res) => {
+        updateProfile(res.user, {
+          displayName: log.username,
+          photoURL: isImage,
+        });
+        setIsPro(false);
+        // --------------------------
+        if (res?.user?.accessToken || !isPro) {
+          const info = {
+            name: log.username,
+            email: res.user?.email,
+            emailVerified: res.user?.emailVerified,
+            image: isImage,
+            uId: res.user?.uid,
+            admin: false,
+            block: false,
+            lastLogin: res.user?.metadata?.lastSignInTime,
+            lastSignIn: res.user?.metadata?.lastSignInTime,
+            createTime: res.user?.metadata?.creationTime,
+          };
+          axiosSecure.post("/user", info).then((res) => {
+            console.log(res.data);
+            navigate("/");
+            reset();
+          });
+        }
       })
-    });
+      .catch((e) => {
+        const error = e.message.split(" ")[2];
+        if (error === "(auth/email-already-in-use).") {
+          toast.error("The email is already use !");
+        }
+        console.log(e);
+      });
   };
   return (
-    <div className="max-w-screen-lg mx-auto mt-5 font-mono p-5">
-      <Helmet>
-        <title> AmiciAdoptHub | Register</title>
-      </Helmet>
-      <div className="card border border-orange-200  flex flex-col-reverse md:flex-row-reverse justify-between gap-6 overflow-hidden">
-        <div className="p-10 w-full">
-          <h1 className="text-3xl">Register</h1>
-          <form className="mt-5" onSubmit={handleSubmit(handleLogin)}>
-            <div className="form-control">
-              <label className="label">Write Your Name</label>
-              <input
-                type="text"
-                className="input input-bordered"
-                {...register("name", { required: true })}
-                placeholder="name"
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">Write Your Email</label>
-              <input
-                type="email"
-                className="input input-bordered"
-                {...register("email", { required: true })}
-                placeholder="email"
-              />
-            </div>
-
-            <div className="form-control relative mt-2">
-              <label className="label">Write Your Password</label>
-              <input
-                type={type ? "text" : "password"}
-                className="input input-bordered"
-                {...register("password", { required: true })}
-                placeholder="password"
-              />
-              <span
-                className="absolute right-8 bottom-4"
-                onClick={() => setType(!type)}
+    <>
+      <ImageModal openModal={openModal} setOpenModal={setOpenModal} />
+      <div className="max-w-screen-lg mx-auto mt-5 font-mono p-5">
+        <Helmet>
+          <title> AmiciAdoptHub | Register</title>
+        </Helmet>
+        <div className="card border border-orange-200  flex flex-col-reverse md:flex-row-reverse justify-between gap-6 overflow-hidden">
+          <div className="p-10 w-full">
+            <Card color="transparent" shadow={false}>
+              <Typography variant="h4" color="blue-gray">
+                Sign Up
+              </Typography>
+              <Typography color="gray" className="mt-1 font-normal">
+                Nice to meet you! Enter your details to register.
+              </Typography>
+              <form
+                className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-full"
+                onSubmit={handleSubmit(handleCreate)}
               >
-                {type ? <FiEye /> : <FiEyeOff />}
-              </span>
-            </div>
-            <div className="form-control">
-              <label className="label">Choses Picture</label>
-              <input
-                type="file"
-                className="file-input file-input-bordered w-full"
-                {...register("photo", { required: true })}
-              />
-            </div>
-            <div className="form-control mt-9 w-52 ml-auto">
-              <button className="btn btn-neutral">
-                Register <FiLogIn />
-              </button>
-            </div>
-          </form>
-        </div>
-        <div className="md:w-3/4 bg-orange-200 px-10 flex flex-col  justify-center p-10">
-          <h1 className="text-2xl">Discover the world of pets with us</h1>
-          <Title />
-          <img src={login} alt="" className="w-full h-3/4" />
-          <Socials />
-          <Link to="/login" className="btn btn-neutral btn-outline px-10 mt-6">
-            <GiJumpingDog /> Already Have
-          </Link>
+                <div className="flex justify-end">
+                  {isImage ? (
+                    <div
+                      className="w-28 rounded-lg overflow-hidden"
+                      onClick={() => setOpenModal(true)}
+                    >
+                      <img src={isImage} alt="" className="w-full h-full" />
+                    </div>
+                  ) : (
+                    <Tooltip content="choose picture">
+                      <Button onClick={() => setOpenModal(true)} variant="text">
+                        <LuImagePlus className="text-xl" />
+                      </Button>
+                    </Tooltip>
+                  )}
+                </div>
+                <div className="flex flex-col gap-3">
+                  <div className="">
+                    <Typography variant="h6" color="blue-gray">
+                      Your Name
+                    </Typography>
+                    {errors.username?.type === "required" && (
+                      <p role="alert" className="text-red-500 capitalize my-1">
+                        username is required
+                      </p>
+                    )}
+                    <Input
+                      size="lg"
+                      placeholder="name"
+                      {...register("username", { required: true })}
+                      className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                      labelProps={{
+                        className: "before:content-none after:content-none",
+                      }}
+                    />
+                  </div>
+                  <div className="">
+                    <Typography variant="h6" color="blue-gray">
+                      Your Email
+                    </Typography>
+                    {errors.email?.type === "required" && (
+                      <p role="alert" className="text-red-500 capitalize my-1">
+                        email is required
+                      </p>
+                    )}
+                    <Input
+                      size="lg"
+                      placeholder="name@mail.com"
+                      {...register("email", { required: true })}
+                      className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                      labelProps={{
+                        className: "before:content-none after:content-none",
+                      }}
+                    />
+                  </div>
+                  <div className="relative">
+                    <Typography variant="h6" color="blue-gray">
+                      Password
+                    </Typography>
+                    {errors.password?.type === "required" && (
+                      <p role="alert" className="text-red-500 capitalize my-1">
+                        password is required
+                      </p>
+                    )}
+                    <Input
+                      type={show ? "text" : "password"}
+                      size="lg"
+                      {...register("password", { required: true })}
+                      placeholder="password"
+                      className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                      labelProps={{
+                        className: "before:content-none after:content-none",
+                      }}
+                    />
+                    <span
+                      className="absolute top-[2.3rem] right-6 mt-1 text-md"
+                      onClick={() => setShow(!show)}
+                    >
+                      {show ? <FiEye /> : <FiEyeOff />}
+                    </span>
+                  </div>
+                </div>
+                <Checkbox
+                  label={
+                    <Typography
+                      variant="small"
+                      color="gray"
+                      className="flex items-center font-normal"
+                    >
+                      I agree the
+                      <a
+                        href="#"
+                        className="font-medium transition-colors hover:text-gray-900"
+                      >
+                        &nbsp;Terms and Conditions
+                      </a>
+                    </Typography>
+                  }
+                  containerProps={{ className: "-ml-2.5" }}
+                />
+                <Button className="mt-6" fullWidth type="submit">
+                  sign up
+                </Button>
+              </form>
+            </Card>
+          </div>
+          <div className="md:w-3/4 bg-orange-200 px-10 flex flex-col  justify-center p-10">
+            <h1 className="text-2xl">Discover the world of pets with us</h1>
+            <Title />
+            <img src={login} alt="" className="w-full h-3/4" />
+            <Socials />
+            <Link
+              to="/login"
+              className="btn btn-neutral btn-outline px-10 mt-6"
+            >
+              <GiJumpingDog /> Already Have
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

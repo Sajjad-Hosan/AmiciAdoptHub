@@ -19,9 +19,21 @@ import { HiXMark } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import UserNav from "../UserNav/UserNav";
+import PropTypes from "prop-types";
+import useAuth from "../../hooks/useAuth";
+import { toast } from "sonner";
+import AdminNav from "../AdminNav/AdminNav";
+import useAdmin from "../../hooks/useAdmin";
+
 const SmNavbar = ({ open, setOpen }) => {
-  const [admin, setAdmin] = useState(false);
+  const [isAdmin] = useAdmin();
+  const { signOutUser } = useAuth();
   const closeDrawer = () => setOpen(false);
+  const handleLogout = () => {
+    signOutUser().then(() => {
+      toast.success("Logout !");
+    });
+  };
   return (
     <>
       <Drawer open={open} onClose={closeDrawer}>
@@ -33,9 +45,9 @@ const SmNavbar = ({ open, setOpen }) => {
         </div>
         <hr className="my-2 border-blue-gray-50" />
 
-        {admin ? "" : <UserNav />}
+        {isAdmin ? <AdminNav /> : <UserNav />}
         <List>
-        <hr className="my-2 border-blue-gray-50" />
+          <hr className="my-2 border-blue-gray-50" />
           <Link to="/">
             <ListItem>
               <ListItemPrefix>
@@ -69,9 +81,7 @@ const SmNavbar = ({ open, setOpen }) => {
               Profile
             </ListItem>
           </Link>
-          <ListItem
-          // onClick={handleLogout}
-          >
+          <ListItem onClick={handleLogout}>
             <ListItemPrefix>
               <FaPersonWalkingDashedLineArrowRight />
             </ListItemPrefix>
@@ -82,5 +92,8 @@ const SmNavbar = ({ open, setOpen }) => {
     </>
   );
 };
-
+SmNavbar.propTypes = {
+  open: PropTypes.bool,
+  setOpen: PropTypes.func,
+};
 export default SmNavbar;

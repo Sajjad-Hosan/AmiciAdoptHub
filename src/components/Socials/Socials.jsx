@@ -4,15 +4,17 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 const Socials = ({ layout }) => {
-  const { google, github } = useAuth();
+  const { google, github, isPro, setIsPro } = useAuth();
   const navigate = useNavigate();
   const handleGoogle = () => {
+    setIsPro(true);
     google().then(() => {
       toast.success("login by google");
       navigate("/");
     });
   };
   const handleGithub = () => {
+    setIsPro(true);
     github().then(() => {
       toast.success("login by github");
       navigate("/");

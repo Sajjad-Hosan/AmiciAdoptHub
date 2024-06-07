@@ -1,13 +1,14 @@
 import { Button, Card, Table } from "flowbite-react";
 import { useState } from "react";
-import { FaLocationArrow } from "react-icons/fa6";
+import { FaLocationArrow, FaRegPenToSquare } from "react-icons/fa6";
 import AdoptMeModal from "../../components/AdoptMeModal/AdoptMeModal";
 import useLoading from "../../hooks/useLoading";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const PetDetails = () => {
   const loaderData = useLoaderData();
   const {
+    _id,
     image,
     petName,
     petAge,
@@ -32,23 +33,24 @@ const PetDetails = () => {
       <AdoptMeModal open={openModal} setOpen={setOpenModal} pet={loaderData} />
       {/* ------------------- */}
       <div className="md:p-10">
-        <div className="w-full h-[25rem] bg-orange-300 rounded-2xl p-10 flex flex-col items-center justify-center gap-3 relative">
+        <div className="w-full h-[25rem] bg-gray-300 bg-opacity-30 rounded-2xl p-10 flex flex-col items-center justify-center gap-3 relative">
           <div
             className={`${
-              adopted ? "bg-green-500" : "bg-red-600"
-            } absolute top-5 right-5 px-6 py-2 rounded-lg text-white font-semibold`}
+              adopted ? "bg-green-500" : "bg-gray-500"
+            } absolute top-5 right-5 px-6 py-2 rounded-lg font-semibold`}
           >
-            {adopted ? "yes" : "no"}
+            Adopted:
+            {adopted ? " yes" : " no"}
           </div>
           <h1 className="text-5xl">
-            Meet <span className="text-red-500 font-semibold">{petName}</span>
+            Meet <span className="text-blue-500 font-semibold">{petName}</span>
           </h1>
           <p className="text-sm font-semibold md:w-1/2 text-center text-gray-600">
             {shortDescription}
           </p>
-          <Card className="absolute bottom-4 right-2">
+          <Card className="absolute bottom-4 right-2 border-gray-500 shadow-none bg-transparent">
             <p className="font-semibold">
-              Adopeted Fee : <span className="text-red-500">${petFee}</span>
+              Adopeted Fee : <span className="text-blue-500">${petFee}</span>
             </p>
           </Card>
         </div>
@@ -105,7 +107,16 @@ const PetDetails = () => {
                 </Table.Body>
               </Table>
             </div>
-            <div className="flex justify-end mt-5">
+            <div className="flex justify-end mt-5 gap-20">
+              <Link to={`/pet_update/${_id}`}>
+                <Button
+                  className="px-10"
+                  size="lg"
+                  onClick={() => handleClicks(true)}
+                >
+                  Update <FaRegPenToSquare />
+                </Button>
+              </Link>
               <Button
                 className="px-10"
                 size="lg"

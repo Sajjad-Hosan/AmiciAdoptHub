@@ -17,9 +17,11 @@ import { toast } from "sonner";
 import UserNav from "../../dashComponents/UserNav/UserNav";
 import SmNavbar from "../../dashComponents/SmNavbar/SmNavbar";
 import { HiOutlineViewGrid } from "react-icons/hi";
+import AdminNav from "../../dashComponents/AdminNav/AdminNav";
+import useAdmin from "../../hooks/useAdmin";
 const Dashboard = () => {
   const { user, signOutUser } = useAuth();
-  const [admin, setAdmin] = useState(false);
+  const [isAdmin] = useAdmin();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -45,7 +47,7 @@ const Dashboard = () => {
           <Title />
         </div>
         <List>
-          {admin ? "" : <UserNav />}
+          {isAdmin ? <AdminNav /> : <UserNav />}
           <hr className="my-2 border-blue-gray-50" />
           <Link to="/">
             <ListItem>
