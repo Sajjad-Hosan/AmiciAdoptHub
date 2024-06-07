@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet-async";
 
-const DonationCard = ({ donated }) => {
+const DonationCard = ({ donated, innerRef }) => {
   const {
     _id,
     image,
@@ -31,7 +31,7 @@ const DonationCard = ({ donated }) => {
   } = donated;
   return (
     <div>
-      <Card className="max-w-[24rem] overflow-hidden">
+      <Card className="w-full overflow-hidden" ref={innerRef}>
         <CardHeader
           floated={false}
           shadow={false}
@@ -45,7 +45,7 @@ const DonationCard = ({ donated }) => {
           />
         </CardHeader>
         <CardBody className="space-y-2">
-          <Typography variant="h2" color="blue-gray">
+          <Typography variant="h2" color="blue-gray" className="capitalize">
             {petName}
           </Typography>
           <span className="flex justify-between">
@@ -69,7 +69,7 @@ const DonationCard = ({ donated }) => {
         <CardFooter className="flex items-center justify-end">
           {/* TODO: id will ne added on the path name */}
           <Link to={`/donation_details/${_id}`}>
-            <Button color="dark">View Detail</Button>
+            <Button color="dark" disabled={pause}>View Detail</Button>
           </Link>
         </CardFooter>
       </Card>
@@ -78,5 +78,6 @@ const DonationCard = ({ donated }) => {
 };
 DonationCard.propTypes = {
   donated: PropTypes.object,
+  innerRef: PropTypes.node,
 };
 export default DonationCard;

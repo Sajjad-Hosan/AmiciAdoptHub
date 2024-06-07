@@ -35,7 +35,6 @@ const AuthProvider = ({ children }) => {
       setUser(currentMe);
       // check user is block or not
       axiosSecure.get(`/user_check?email=${currentMe?.email}`).then((res) => {
-        console.log(res.data);
         setIsBlock(res.data?.block);
       });
       // send data to database

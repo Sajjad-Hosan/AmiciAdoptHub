@@ -20,7 +20,7 @@ import { HiOutlineViewGrid } from "react-icons/hi";
 import AdminNav from "../../dashComponents/AdminNav/AdminNav";
 import useAdmin from "../../hooks/useAdmin";
 const Dashboard = () => {
-  const { user, signOutUser } = useAuth();
+  const { signOutUser } = useAuth();
   const [isAdmin] = useAdmin();
   const navigate = useNavigate();
 

@@ -9,7 +9,6 @@ import { toast } from "sonner";
 import { VscGear } from "react-icons/vsc";
 const ProfileNav = () => {
   const { user, signOutUser } = useAuth();
-  console.log(user);
   const handleLogout = () => {
     signOutUser().then(() => {
       toast.success("Logout");

@@ -1,6 +1,6 @@
-import { FaHouseUser } from "react-icons/fa6";
-import { LuUserX } from "react-icons/lu";
-import { FiUserCheck } from "react-icons/fi";
+import { PiTrashBold } from "react-icons/pi";
+import { LuPenSquare } from "react-icons/lu";
+import { CgBlock, CgUnblock } from "react-icons/cg";
 import {
   Card,
   Typography,
@@ -12,59 +12,53 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import { toast } from "sonner";
-import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import { useCallback, useEffect, useState } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 const TABLE_HEAD = ["#", "Image", "Name", "email", "", "Action"];
-const AdminUsers = () => {
-  const { user } = useAuth();
+const AdminDonations = () => {
+  const loader = useLoaderData();
   const axiosSecure = useAxiosSecure();
-  const { data = [], refetch } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/all_users/?email=${user?.email}`);
-      return res.data;
-    },
-  });
-  const handleMakeAdmin = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You want to make him admin ?",
-      icon: "warning",
-      showCancelButton: false,
-      confirmButtonColor: "#3085d6",
-      confirmButtonText: "Yes, make him!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const info = {
-          admin: true,
-        };
-        axiosSecure.patch(`/make_admin/${id}?mode=admin`, info).then((res) => {
-          console.log(res.data);
-          refetch();
-          toast.success('admin created!')
-        });
+  //
+  const [data, setData] = useState([]);
+  const [count] = useState(loader.count);
+  const [current, setCurrent] = useState(0);
+  const numberOfPages = Math.ceil(count / 10);
+  const fetchData = useCallback(() => {
+    axiosSecure
+      .post(`/donation_campaign?page=${current}&mode=admin`)
+      .then((res) => {
+        setData(res.data);
+      });
+  }, [axiosSecure, current]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+  const handleDelete = (id) => {
+    axiosSecure.delete(`/donation_delete/${id}`).then((res) => {
+      if (res.data.deletedCount) {
+        toast.success("Donation has been deleted!");
       }
     });
   };
-  const handleBlockUser = (id, bool) => {
+  const handlePause = (id, bool) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: `You want to ${bool ? "block" : "unblock"} him ?`,
-      icon: "warning",
+      title: "Are you sure ?",
       showCancelButton: false,
       confirmButtonColor: "#3085d6",
-      confirmButtonText: `Yes, ${bool ? "block" : "unblock"} him!`,
+      cancelButtonColor: "#d33",
+      confirmButtonText: `Yes, ${bool ? "play" : "pause"} it!`,
     }).then((result) => {
       if (result.isConfirmed) {
         const info = {
-          block: bool,
+          pause: bool,
         };
-        axiosSecure.patch(`/make_admin/${id}?mode=block`, info).then((res) => {
+        axiosSecure.patch(`/donation_update_status/${id}`, info).then((res) => {
           console.log(res.data);
-          refetch();
-          toast.success("user blocked!");
+          if (res.data.modifiedCount) {
+            toast.success(bool ? "donation pause" : "donation start");
+          }
         });
       }
     });
@@ -72,9 +66,9 @@ const AdminUsers = () => {
   return (
     <div className="md:p-10">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl">Users</h1>
+        <h1 className="text-3xl">Donations</h1>
         <span className="py-3 px-6 border-2 border-gray-400 rounded-lg font-semibold">
-          Users: {data.length < 10 ? `0${data.length}` : data.length}
+          donations: {count.length < 10 ? `0${count}` : count}
         </span>
       </div>
       <div className="mt-10">
@@ -100,19 +94,22 @@ const AdminUsers = () => {
               </thead>
               <tbody>
                 {data.map((item, index) => {
-                  const isLast = index === data.length - 1;
+                  const isLast = index === data.length;
                   const classes = isLast
                     ? "p-4"
                     : "p-4 border-b border-blue-gray-50";
 
                   return (
-                    <tr key={index} className={item.block ? "bg-gray-500" : ""}>
-                      <td className={classes}>{index}</td>
+                    <tr
+                      key={index}
+                      className={item.adopted ? "bg-gray-200" : ""}
+                    >
+                      <td className={classes}>{index + 1}</td>
                       <td className={classes}>
                         <div className="flex items-center gap-3">
                           <Avatar
                             src={item.image}
-                            alt={item.name}
+                            alt={item.petName}
                             size="md"
                             variant="rounded"
                           />
@@ -124,10 +121,10 @@ const AdminUsers = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {item.name}
+                          {item.petName}
                         </Typography>
                       </td>
-                      <td className={classes}>{item.email}</td>
+                      <td className={classes}>${item.currentDonation}</td>
                       <td className={classes}>
                         <Typography
                           variant="small"
@@ -138,35 +135,38 @@ const AdminUsers = () => {
                         </Typography>
                       </td>
                       <td className={`space-x-3 ${classes}`}>
-                        {item.block ? (
-                          ""
-                        ) : (
-                          <Tooltip content="make admin">
-                            <IconButton
-                              variant="text"
-                              disabled={item?.admin}
-                              onClick={() => handleMakeAdmin(item._id)}
-                            >
-                              <FaHouseUser className="h-5 w-5" />
+                        <Tooltip content="delete">
+                          <IconButton
+                            variant="text"
+                            onClick={() => handleDelete(item._id)}
+                          >
+                            <PiTrashBold className="text-xl" />
+                          </IconButton>
+                        </Tooltip>
+
+                        <Link to={`/dashboard/pet_update/${item._id}`}>
+                          <Tooltip content="update">
+                            <IconButton variant="text">
+                              <LuPenSquare className="text-xl" />
                             </IconButton>
                           </Tooltip>
-                        )}
-                        {item.block ? (
-                          <Tooltip content="unblock user">
+                        </Link>
+                        {item.adopted ? (
+                          <Tooltip content="unAdopted" className="bg-green-600">
                             <IconButton
                               variant="text"
-                              onClick={() => handleBlockUser(item._id, false)}
+                              onClick={() => handlePause(false, item._id)}
                             >
-                              <FiUserCheck className="h-5 w-5" />
+                              <CgUnblock className="text-xl" />
                             </IconButton>
                           </Tooltip>
                         ) : (
-                          <Tooltip content="block user">
+                          <Tooltip content="adopted" className="bg-red-500">
                             <IconButton
                               variant="text"
-                              onClick={() => handleBlockUser(item._id, true)}
+                              onClick={() => handlePause(true, item._id)}
                             >
-                              <LuUserX className="h-5 w-5" />
+                              <CgBlock className="text-xl" />
                             </IconButton>
                           </Tooltip>
                         )}
@@ -177,7 +177,7 @@ const AdminUsers = () => {
               </tbody>
             </table>
           </CardBody>
-          {data.length < 10 ? (
+          {data.length < 1 ? (
             ""
           ) : (
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
@@ -186,13 +186,23 @@ const AdminUsers = () => {
                 color="blue-gray"
                 className="font-normal"
               >
-                Page 1 of 10
+                Page {current} of {numberOfPages - 1}
               </Typography>
               <div className="flex gap-2">
-                <Button variant="outlined" size="sm">
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  onClick={() => setCurrent((val) => val - 1)}
+                  disabled={current <= 0}
+                >
                   Previous
                 </Button>
-                <Button variant="outlined" size="sm">
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  onClick={() => setCurrent((val) => val + 1)}
+                  disabled={numberOfPages <= current}
+                >
                   Next
                 </Button>
               </div>
@@ -204,4 +214,4 @@ const AdminUsers = () => {
   );
 };
 
-export default AdminUsers;
+export default AdminDonations;

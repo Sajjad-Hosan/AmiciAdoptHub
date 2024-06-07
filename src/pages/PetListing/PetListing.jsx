@@ -3,17 +3,37 @@ import { useEffect, useState } from "react";
 import { VscSearch } from "react-icons/vsc";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import CardComponent from "../../components/Card/CardComponent";
-import { Button, Tooltip } from "@material-tailwind/react";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { Button, Spinner, Tooltip } from "@material-tailwind/react";
+import { useInView } from "react-intersection-observer";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useLoaderData } from "react-router-dom";
 const PetListing = () => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const [openModal, setOpenModal] = useState(false);
-  const [lists, setLists] = useState([]);
+  const { ref, inView } = useInView();
+  const {
+    data = [],
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["pets"],
+    queryFn: async ({ pageParam }) => {
+      const res = await axiosSecure.post(`/pets?page=${pageParam}`);
+      return res.data;
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPage) => {
+      return allPage.length + 1;
+    },
+  });
   useEffect(() => {
-    axiosPublic.get("/pets").then((res) => {
-      setLists(res.data);
-    });
-  }, [axiosPublic]);
+    if (inView || hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
   return (
     <>
       <SearchBox open={openModal} setOpen={setOpenModal} />
@@ -38,21 +58,31 @@ const PetListing = () => {
                 <VscSearch className="text-md" />
               </Button>
             </Tooltip>
-            <div className="">
-              <Select id="countries" required>
-                <option disabled>Category</option>
-                <option value='date'>Date</option>
-                <option value='time'>Time</option>
-                <option value='name'>Name</option>
+            <div>
+              <Select id="countries">
+                <option value="date">Date</option>
+                <option value="time">Time</option>
+                <option value="name">Name</option>
                 <option disabled>Coming soon</option>
               </Select>
             </div>
           </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-10 mt-16">
-          {lists.map((list) => (
-            <CardComponent key={list._id} pet={list} />
-          ))}
+        <div className="">
+          <div className="grid md:grid-cols-3 gap-10 mt-16">
+            {data?.pages?.map((item) =>
+              item.map((list) => {
+                return (
+                  <CardComponent innerRef={ref} key={list._id} pet={list} />
+                );
+              })
+            )}
+          </div>
+          {isFetchingNextPage && (
+            <div>
+              <Spinner className="h-10 w-10 mt-14 mx-auto" />
+            </div>
+          )}
         </div>
       </div>
     </>

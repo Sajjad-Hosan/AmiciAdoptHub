@@ -14,10 +14,11 @@ import PetUpdate from "../dashBoardPages/PetUpdate/PetUpdate";
 import CreateCamPaign from "../dashBoardPages/CreateCamPaign/CreateCamPaign";
 import DonationCampaigns from "../dashBoardPages/DonationCampaigns/DonationCampaigns";
 import CampaignUpdate from "../dashBoardPages/CampaignUpdate/CampaignUpdate";
-import useAuth from "../hooks/useAuth";
 import MyDonations from "../dashBoardPages/MyDonations/MyDonations";
 import AdoptedRequest from "../dashBoardPages/AdoptedRequest/AdoptedRequest";
 import AdminUsers from "../dashBoardPages/AdminUsers/AdminUsers";
+import AdminPets from "../dashBoardPages/AdminPets/AdminPets";
+import AdminDonations from "../dashBoardPages/AdminDonations/AdminDonations";
 
 const router = createBrowserRouter([
   {
@@ -107,6 +108,16 @@ const router = createBrowserRouter([
       {
         path: "admin_users",
         element: <AdminUsers />,
+      },
+      {
+        path: "admin_pets",
+        loader: () => fetch("http://localhost:1000/pets_count"),
+        element: <AdminPets />,
+      },
+      {
+        path: "admin_donations",
+        loader: () => fetch("http://localhost:1000/donations_count"),
+        element: <AdminDonations />,
       },
     ],
   },

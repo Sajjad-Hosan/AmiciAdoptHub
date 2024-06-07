@@ -1,20 +1,38 @@
-import { Input, Option, Select } from "@material-tailwind/react";
+import { Input, Option, Select, Spinner } from "@material-tailwind/react";
 import DonationCard from "../../components/DonationCard/DonationCard";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import { Helmet } from "react-helmet-async";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
 
 const DonationPage = () => {
+  const { ref, inView } = useInView();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data } = useQuery({
+  const {
+    data = [],
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery({
     queryKey: ["donations", user?.email],
-    queryFn: async () => {
-      const res = await axiosSecure(`/donation_campaign?email=${user?.email}`);
+    queryFn: async ({pageParam}) => {
+      const res = await axiosSecure(`/donation_campaign?email=${user?.email}&page=${pageParam}`);
       return res.data;
     },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      return allPages.length + 1;
+    },
   });
+  useEffect(() => {
+    if (inView || hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
   return (
     <div className="md:p-10">
       <Helmet>
@@ -36,10 +54,21 @@ const DonationPage = () => {
           </Select>
         </div>
       </div>
-      <div className="mt-20 grid md:grid-cols-3 gap-5 place-items-center">
-        {data?.map((item) => (
-          <DonationCard key={item._id} donated={item} />
-        ))}
+      <div>
+        <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-5 place-items-center">
+          {data?.pages?.map((item) =>
+            item.map((list) => {
+              return (
+                <DonationCard innerRef={ref} key={list._id} donated={list} />
+              );
+            })
+          )}
+        </div>
+        {isFetchingNextPage && (
+          <div>
+            <Spinner className="h-10 w-10 mt-14 mx-auto" />
+          </div>
+        )}
       </div>
     </div>
   );
