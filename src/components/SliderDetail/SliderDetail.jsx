@@ -43,7 +43,7 @@ const SliderDetail = ({ loaderData }) => {
               <div className="mt-10">
                 <Link to={`/pet_detail/${loaderData?._id}`}>
                   <Button className="px-10 mt-8" size="lg">
-                    Adopt Me <FaLocationArrow />
+                    More Details <FaLocationArrow />
                   </Button>
                 </Link>
               </div>

@@ -4,9 +4,11 @@ import { FaLocationArrow, FaRegPenToSquare } from "react-icons/fa6";
 import AdoptMeModal from "../../components/AdoptMeModal/AdoptMeModal";
 import useLoading from "../../hooks/useLoading";
 import { Link, useLoaderData } from "react-router-dom";
+import useAdmin from "../../hooks/useAdmin";
 
 const PetDetails = () => {
   const loaderData = useLoaderData();
+  const [isAdmin] = useAdmin();
   const {
     _id,
     image,
@@ -45,7 +47,7 @@ const PetDetails = () => {
           <h1 className="text-5xl">
             Meet <span className="text-blue-500 font-semibold">{petName}</span>
           </h1>
-          <p className="text-sm font-semibold md:w-1/2 text-center text-gray-600">
+          <p className="text-sm font-semibold md:w-1/2 text-center text-gray-200">
             {shortDescription}
           </p>
           <Card className="absolute bottom-4 right-2 border-gray-500 shadow-none bg-transparent">
@@ -62,7 +64,7 @@ const PetDetails = () => {
               alt=""
             />
           </div>
-          <div className="md:h-[35rem] p-12 bg-white bg-opacity-30 rounded-2xl shadow flex flex-col justify-between">
+          <div className=" p-12 bg-white bg-opacity-30 rounded-2xl shadow flex flex-col justify-between">
             <div className="">
               <h1 className="text-6xl">Hi i'm {petName}</h1>
               <p className="text-gray-800 w-11/12 mt-2">{description}</p>
@@ -108,15 +110,19 @@ const PetDetails = () => {
               </Table>
             </div>
             <div className="flex justify-end mt-5 gap-20">
-              <Link to={`/pet_update/${_id}`}>
-                <Button
-                  className="px-10"
-                  size="lg"
-                  onClick={() => handleClicks(true)}
-                >
-                  Update <FaRegPenToSquare />
-                </Button>
-              </Link>
+              {isAdmin ? (
+                <Link to={`/pet_update/${_id}`}>
+                  <Button
+                    className="px-10"
+                    size="lg"
+                    onClick={() => handleClicks(true)}
+                  >
+                    Update <FaRegPenToSquare />
+                  </Button>
+                </Link>
+              ) : (
+                ""
+              )}
               <Button
                 className="px-10"
                 size="lg"
