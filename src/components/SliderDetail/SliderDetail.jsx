@@ -30,13 +30,8 @@ const SliderDetail = ({ loaderData }) => {
               />
             </div>
             <div className="w-full">
-              <div className="flex items-center justify-between">
-                <h1 className="text-3xl">Hi, I'm {loaderData?.petName}</h1>
-                <span className="flex items-center card border px-6 py-3">
-                  Adoption Fee
-                  <p className="font-semibold">${loaderData?.petFee}*</p>
-                </span>
-              </div>
+              <h1 className="text-3xl">Hi, I'm {loaderData?.petName}</h1>
+
               <p className="font-light text-gray-700 mt-2">
                 {loaderData?.description}
               </p>

@@ -15,7 +15,7 @@ const Sliders = () => {
   const { data = [] } = useQuery({
     queryKey: ["sliders"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/pets");
+      const res = await axiosSecure.post("/pets?page=0");
       return res.data;
     },
   });

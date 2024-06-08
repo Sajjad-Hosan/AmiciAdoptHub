@@ -12,30 +12,13 @@ import {
 const FooterPlat = () => {
   return (
     <>
-      <footer className="w-full bg-white p-8 mt-20 card border rounded-3xl">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-y-6 gap-x-12 bg-white text-center md:justify-between">
+      <footer className="w-full bg-white bg-opacity-25 p-8 mt-20 card rounded-3xl">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-y-6 gap-x-12 bg-transparent text-center md:justify-between">
           <Title />
           <div className="relative flex flex-col ">
             <p className="text-lg font-semibold mb-2">
               Stay Informed With Our Newsletter
             </p>
-            <form>
-              <div className="relative">
-                <input
-                  type="email"
-                  id="search"
-                  className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                  placeholder="email"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Subscribe
-                </button>
-              </div>
-            </form>
           </div>
         </div>
         <div className="flex flex-col mf:flex-row justify-between items-center gap-10">

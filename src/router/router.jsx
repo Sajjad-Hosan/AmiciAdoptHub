@@ -92,6 +92,7 @@ const router = createBrowserRouter([
       },
       {
         path: "donation_campaign",
+        loader: () => fetch("http://localhost:1000/donations_count"),
         element: <DonationCampaigns />,
       },
       {
@@ -102,6 +103,7 @@ const router = createBrowserRouter([
       },
       {
         path: "my_donations",
+        loader: () => fetch("http://localhost:1000/donations_count"),
         element: <MyDonations />,
       },
       // admin pages routes

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaPersonWalkingDashedLineArrowRight } from "react-icons/fa6";
 import { FaRegUserCircle } from "react-icons/fa";
-import { FiUserPlus, FiUsers } from "react-icons/fi";
+import { FiUserPlus } from "react-icons/fi";
 import pro1 from "../../assets/Profile_Pics/profile1.jpg";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "sonner";
@@ -28,7 +28,7 @@ const ProfileNav = () => {
         </div>
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content mt-3 z-10 p-5 shadow bg-orange-300 rounded-box w-52 space-y-3"
+          className="menu menu-sm dropdown-content mt-3 z-20 p-4 shadow bg-gray-700 rounded-box w-52 space-y-3 text-white"
         >
           <li>
             <button>
@@ -49,11 +49,11 @@ const ProfileNav = () => {
           <li>
             {" "}
             <button className="w-full">
-              <FiUserPlus /> Be a Member
+              <FiUserPlus /> Be a admin
             </button>
           </li>
+          <div className="divider"></div>
           <li>
-            {" "}
             <button onClick={handleLogout} className="w-full">
               <FaPersonWalkingDashedLineArrowRight /> Logout
             </button>

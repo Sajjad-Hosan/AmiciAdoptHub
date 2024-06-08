@@ -36,19 +36,32 @@ const AdminDonations = () => {
     fetchData();
   }, [fetchData]);
   const handleDelete = (id) => {
-    axiosSecure.delete(`/donation_delete/${id}`).then((res) => {
-      if (res.data.deletedCount) {
-        toast.success("Donation has been deleted!");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/donation_delete/${id}`).then((res) => {
+          if (res.data.deletedCount) {
+            toast.success("Donation has been deleted!");
+          }
+          fetchData();
+        });
       }
     });
   };
-  const handlePause = (id, bool) => {
+  const handlePause = (bool, id) => {
     Swal.fire({
       title: "Are you sure ?",
       showCancelButton: false,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: `Yes, ${bool ? "play" : "pause"} it!`,
+      confirmButtonText: `Yes, ${bool ? "pause" : "play"} it!`,
     }).then((result) => {
       if (result.isConfirmed) {
         const info = {
@@ -58,6 +71,7 @@ const AdminDonations = () => {
           console.log(res.data);
           if (res.data.modifiedCount) {
             toast.success(bool ? "donation pause" : "donation start");
+            fetchData();
           }
         });
       }
@@ -102,7 +116,7 @@ const AdminDonations = () => {
                   return (
                     <tr
                       key={index}
-                      className={item.adopted ? "bg-gray-200" : ""}
+                      className={item.pause ? "bg-gray-200" : ""}
                     >
                       <td className={classes}>{index + 1}</td>
                       <td className={classes}>
@@ -151,7 +165,7 @@ const AdminDonations = () => {
                             </IconButton>
                           </Tooltip>
                         </Link>
-                        {item.adopted ? (
+                        {item.pause ? (
                           <Tooltip content="unAdopted" className="bg-green-600">
                             <IconButton
                               variant="text"
@@ -177,7 +191,7 @@ const AdminDonations = () => {
               </tbody>
             </table>
           </CardBody>
-          {data.length < 1 ? (
+          {data.length < 9 ? (
             ""
           ) : (
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">

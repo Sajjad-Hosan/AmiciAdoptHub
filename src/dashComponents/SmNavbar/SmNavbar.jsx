@@ -15,9 +15,7 @@ import { LuLeaf } from "react-icons/lu";
 import { FaPersonWalkingDashedLineArrowRight } from "react-icons/fa6";
 
 import Title from "../../components/Title/Title";
-import { HiXMark } from "react-icons/hi2";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import UserNav from "../UserNav/UserNav";
 import PropTypes from "prop-types";
 import useAuth from "../../hooks/useAuth";
@@ -39,9 +37,6 @@ const SmNavbar = ({ open, setOpen }) => {
       <Drawer open={open} onClose={closeDrawer}>
         <div className="mb-2 flex items-center justify-between p-4">
           <Title />
-          <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
-            <HiXMark className="text-xl" />
-          </IconButton>
         </div>
         <hr className="my-2 border-blue-gray-50" />
 

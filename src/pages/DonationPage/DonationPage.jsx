@@ -5,28 +5,34 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import { Helmet } from "react-helmet-async";
 import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const DonationPage = () => {
   const { ref, inView } = useInView();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [sort, setSort] = useState("petName");
   const {
     data = [],
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
   } = useInfiniteQuery({
-    queryKey: ["donations", user?.email],
-    queryFn: async ({pageParam}) => {
-      const res = await axiosSecure(`/donation_campaign?email=${user?.email}&page=${pageParam}`);
+    queryKey: ["donations", user?.email,sort],
+    initialPageParam: 0,
+    queryFn: async ({ pageParam }) => {
+      const res = await axiosSecure.post(
+        `/donation_campaign?email=${user?.email}&page=${pageParam}`
+      );
       return res.data;
     },
-    initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
       return allPages.length + 1;
     },
   });
+  const handleSort = (e) => {
+    setSort(e);
+  };
   useEffect(() => {
     if (inView || hasNextPage) {
       fetchNextPage();
@@ -47,9 +53,11 @@ const DonationPage = () => {
           <Input variant="standard" label="Search Here" placeholder="search" />
         </div>
         <div className="flex md:w-96 flex-col gap-6">
-          <Select size="lg" label="Sort by">
-            <Option defaultChecked>Date</Option>
-            <Option>Amount</Option>
+          <Select size="lg" label="Sort by" onChange={handleSort}>
+            <Option value="petName">Name</Option>
+            <Option value="currentDonation">current amount</Option>
+            <Option value="maxDonationAmount">max amount</Option>
+            <Option value="highestDonationAmount">highest amount</Option>
             <Option disabled>Coming soon</Option>
           </Select>
         </div>
@@ -57,10 +65,13 @@ const DonationPage = () => {
       <div>
         <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-5 place-items-center">
           {data?.pages?.map((item) =>
-            item.map((list) => {
-              return (
-                <DonationCard innerRef={ref} key={list._id} donated={list} />
-              );
+            item.map((list, i) => {
+              if (list?.length === i + 1) {
+                return (
+                  <DonationCard innerRef={ref} key={list._id} donated={list} />
+                );
+              }
+              return <DonationCard key={list._id} donated={list} />;
             })
           )}
         </div>

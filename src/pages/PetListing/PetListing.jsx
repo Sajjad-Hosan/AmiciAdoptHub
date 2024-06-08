@@ -1,9 +1,14 @@
-import { Select } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { VscSearch } from "react-icons/vsc";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import CardComponent from "../../components/Card/CardComponent";
-import { Button, Spinner, Tooltip } from "@material-tailwind/react";
+import {
+  Button,
+  Option,
+  Select,
+  Spinner,
+  Tooltip,
+} from "@material-tailwind/react";
 import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -11,16 +16,20 @@ import { useLoaderData } from "react-router-dom";
 const PetListing = () => {
   const axiosSecure = useAxiosSecure();
   const [openModal, setOpenModal] = useState(false);
+  const [sort, setSort] = useState("petAddDate");
   const { ref, inView } = useInView();
   const {
     data = [],
     fetchNextPage,
     isFetchingNextPage,
     hasNextPage,
+    refetch,
   } = useInfiniteQuery({
-    queryKey: ["pets"],
+    queryKey: ["petlistings", sort],
     queryFn: async ({ pageParam }) => {
-      const res = await axiosSecure.post(`/pets?page=${pageParam}`);
+      const res = await axiosSecure.post(
+        `/pets?page=${pageParam}&sort=${sort}`
+      );
       return res.data;
     },
     initialPageParam: 0,
@@ -28,11 +37,15 @@ const PetListing = () => {
       return allPage.length + 1;
     },
   });
+  const handleSortType = (e) => {
+    setSort(e);
+  };
+
   useEffect(() => {
     if (inView || hasNextPage) {
       fetchNextPage();
     }
-  }, [inView, hasNextPage, fetchNextPage]);
+  }, [inView, hasNextPage, fetchNextPage, sort]);
 
   return (
     <>
@@ -59,11 +72,12 @@ const PetListing = () => {
               </Button>
             </Tooltip>
             <div>
-              <Select id="countries">
-                <option value="date">Date</option>
-                <option value="time">Time</option>
-                <option value="name">Name</option>
-                <option disabled>Coming soon</option>
+              <Select size="lg" label="Sort by" onChange={handleSortType}>
+                <Option value="petName">Name</Option>
+                <Option value="petAge">Age</Option>
+                <Option value="petAddDate">Date</Option>
+                <Option value="petAddTime">Time</Option>
+                <Option disabled>Coming soon</Option>
               </Select>
             </div>
           </div>

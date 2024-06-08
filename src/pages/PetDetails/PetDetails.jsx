@@ -56,6 +56,9 @@ const PetDetails = () => {
             </p>
           </Card>
         </div>
+        <div className="w-full h-[35rem] my-14">
+          <img src={image} alt="" className="w-full h-full object-contain" />
+        </div>
         <div className="mt-16 flex flex-col gap-5">
           <div className="w-full h-full">
             <img

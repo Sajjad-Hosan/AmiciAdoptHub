@@ -26,7 +26,7 @@ const TABLE_HEAD = [
   "Action",
 ];
 
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -34,18 +34,23 @@ import { VscEmptyWindow } from "react-icons/vsc";
 import DonationViewModal from "../DonationViewModal/DonationViewModal";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { Badge } from "flowbite-react";
 
 const DonationCampaigns = () => {
+  const loader = useLoaderData();
+  const [count] = useState(loader.count);
+  const [current, setCurrent] = useState(0);
+  const numberOfPages = Math.ceil(count / 10);
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const axiosSecure = useAxiosSecure();
   //   const [open, setOpen] = useState(false);
-  const { data, refetch } = useQuery({
-    queryKey: ["donations", user?.email],
+  const { data = [], refetch } = useQuery({
+    queryKey: ["donations_campiagn", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure(`/donation_campaign?email=${user?.email}`);
+      const res = await axiosSecure.post(
+        `/donation_campaign?email=${user?.email}&page=${current}`
+      );
       return res.data;
     },
   });
@@ -258,27 +263,37 @@ const DonationCampaigns = () => {
                 </tbody>
               </table>
             </CardBody>
-            {/* {myPets.length < 10 ? (
-          ""
-        ) : (
-          <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-            <Typography
-              variant="small"
-              color="blue-gray"
-              className="font-normal"
-            >
-              Page 1 of 10
-            </Typography>
-            <div className="flex gap-2">
-              <Button variant="outlined" size="sm">
-                Previous
-              </Button>
-              <Button variant="outlined" size="sm">
-                Next
-              </Button>
-            </div>
-          </CardFooter>
-        )} */}
+            {data.length < 9 ? (
+              ""
+            ) : (
+              <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="font-normal"
+                >
+                  Page {current} of {numberOfPages - 1}
+                </Typography>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outlined"
+                    size="sm"
+                    onClick={() => setCurrent((val) => val - 1)}
+                    disabled={current <= 0}
+                  >
+                    Previous
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    size="sm"
+                    onClick={() => setCurrent((val) => val + 1)}
+                    disabled={numberOfPages <= current}
+                  >
+                    Next
+                  </Button>
+                </div>
+              </CardFooter>
+            )}
           </Card>
         </div>
       </div>

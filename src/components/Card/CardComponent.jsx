@@ -13,7 +13,6 @@ const CardComponent = ({ pet, innerRef }) => {
     petLocation,
 
   } = pet;
-  console.log(image);
   return (
     <Card
       ref={innerRef}

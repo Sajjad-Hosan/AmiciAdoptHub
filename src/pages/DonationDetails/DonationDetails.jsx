@@ -46,8 +46,8 @@ const DonationDetails = () => {
         refetch={refetch}
       />
       <div className="md:p-10 mt-10">
-        <div className="fixed top-0 left-0 -z-10">
-          <img src={image} alt="" className="w-full-h-full" />
+        <div className="fixed top-0 left-0 -z-10 w-full h-full">
+          <img src={image} alt="" className="w-full h-full" />
         </div>
         <div className="h-[30rem] bg-white bg-opacity-50 p-10 flex flex-col items-center justify-center gap-4 rounded-3xl">
           <h1 className="text-5xl text-center capitalize">Help {petName}</h1>

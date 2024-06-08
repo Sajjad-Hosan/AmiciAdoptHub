@@ -24,7 +24,7 @@ const NavbarCom = () => {
   );
   return (
     <>
-      <div className="navbar bg-transparent">
+      <div className="navbar bg-base-100 bg-opacity-25 md:px-10 rounded-xl">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -45,7 +45,7 @@ const NavbarCom = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-20 p-4 shadow bg-base-100 rounded-box w-52 space-y-2"
+              className="menu menu-sm dropdown-content mt-6 z-20 p-4 shadow bg-gray-700 rounded-box w-56 space-y-2 text-white"
             >
               {navList}{" "}
             </ul>
