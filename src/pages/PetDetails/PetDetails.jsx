@@ -112,26 +112,26 @@ const PetDetails = () => {
                 </Table.Body>
               </Table>
             </div>
-            <div className="flex justify-end mt-5 gap-20">
+            <div className="flex justify-end mt-5 gap-10">
               {isAdmin ? (
                 <Link to={`/pet_update/${_id}`}>
                   <Button
-                    className="px-10"
+                    className="px-8"
                     size="lg"
                     onClick={() => handleClicks(true)}
                   >
-                    Update <FaRegPenToSquare />
+                    Update <FaRegPenToSquare className="mx-2 mt-1" />
                   </Button>
                 </Link>
               ) : (
                 ""
               )}
               <Button
-                className="px-10"
+                className="px-8"
                 size="lg"
                 onClick={() => handleClicks(true)}
               >
-                Adopt Me <FaLocationArrow />
+                Adopt Me <FaLocationArrow className="mx-2 mt-1" />
               </Button>
             </div>
           </div>

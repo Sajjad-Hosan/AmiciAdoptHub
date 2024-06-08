@@ -34,6 +34,7 @@ const AuthProvider = ({ children }) => {
   }, []);
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentMe) => {
+      setLoading(false);
       setUser(currentMe);
       // send email to verify token to server side jwt api
       const user = { email: currentMe?.email };
@@ -42,14 +43,12 @@ const AuthProvider = ({ children }) => {
           .post("http://localhost:1000/jwt", user, { withCredentials: true })
           .then((jwt) => {
             console.log(jwt?.data);
-            setLoading(false);
           });
       } else {
         axios
           .post("http://localhost:1000/logout", user, { withCredentials: true })
           .then((log) => {
             console.log(log);
-            setLoading(false);
           });
       }
 
