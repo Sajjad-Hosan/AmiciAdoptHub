@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import PetCard from "../PetCard/PetCard";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-const PetsCategory = () => {
+import useAxiosSecure from "../../hooks/useAxiosSecure";const PetsCategory = () => {
   const categorys = ["dog", "cat", "rabbit", "snake", "fish", "bird"];
   const [tab, setTab] = useState(0);
   const [tabName, setTabName] = useState("dog");
   const [data, setData] = useState([]);
   const axiosSecure = useAxiosSecure();
-  // console.log(filter);
   const handleTab = (i, item) => {
     setTab(i);
     setTabName(item);

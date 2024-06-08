@@ -13,12 +13,14 @@ import app from "../service/firebase/firebase";
 import PropTypes from "prop-types";
 import { toast } from "sonner";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
   const axiosSecure = useAxiosSecure();
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [moment, setMoment] = useState(false);
   const [isImage, setIsImage] = useState("");
   const [isPro, setIsPro] = useState(false);
@@ -33,6 +35,24 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentMe) => {
       setUser(currentMe);
+      // send email to verify token to server side jwt api
+      const user = { email: currentMe?.email };
+      if (currentMe) {
+        axios
+          .post("http://localhost:1000/jwt", user, { withCredentials: true })
+          .then((jwt) => {
+            console.log(jwt?.data);
+            setLoading(false);
+          });
+      } else {
+        axios
+          .post("http://localhost:1000/logout", user, { withCredentials: true })
+          .then((log) => {
+            console.log(log);
+            setLoading(false);
+          });
+      }
+
       // check user is block or not
       axiosSecure.get(`/user_check?email=${currentMe?.email}`).then((res) => {
         setIsBlock(res.data?.block);
@@ -63,18 +83,23 @@ const AuthProvider = ({ children }) => {
     return () => unSubscribe();
   }, [auth, axiosSecure, isImage, isPro, isBlock]);
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const signInUser = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
   const signOutUser = () => {
+    setLoading(true);
     return signOut(auth);
   };
   const google = () => {
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
   const github = () => {
+    setLoading(true);
     return signInWithPopup(auth, githubProvider);
   };
   const handleCooking = (title) => {
@@ -82,6 +107,7 @@ const AuthProvider = ({ children }) => {
   };
   const contextProvider = {
     user,
+    loading,
     moment,
     isImage,
     isPro,

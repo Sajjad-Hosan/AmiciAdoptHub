@@ -5,6 +5,7 @@ import { FileInput } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "sonner";
+import axios from "axios";
 
 const AddStore = ({ openModal, setOpenModal }) => {
   const axiosSecure = useAxiosSecure();
@@ -14,10 +15,10 @@ const AddStore = ({ openModal, setOpenModal }) => {
   const time = today.toLocaleTimeString();
   const imgbb_key = import.meta.env.VITE_IMG_KEY;
   const imgbb_url = `https://api.imgbb.com/1/upload?key=${imgbb_key}`;
-  const handleStory = (e) => {
+  const handleStory = async (e) => {
     console.log(e);
     //
-    const imageFile = { image: pet.petImageFile[0] };
+    const imageFile = { image: e.petImageFile[0] };
     // sending image to imgbb server my api
     const res = await axios.post(imgbb_url, imageFile, {
       headers: {
@@ -35,7 +36,7 @@ const AddStore = ({ openModal, setOpenModal }) => {
         shortStory: e.shortStory,
         store: e.store,
         storyAddDate: date,
-        storyAddTime: time
+        storyAddTime: time,
       };
       axiosSecure.post("/success_store", info).then((res) => {
         console.log(res.data);
@@ -45,8 +46,6 @@ const AddStore = ({ openModal, setOpenModal }) => {
       });
     }
   };
-
-
 
   return (
     <>
@@ -85,7 +84,10 @@ const AddStore = ({ openModal, setOpenModal }) => {
                   placeholder="Standard"
                   {...register("location", { required: true })}
                 />
-                <FileInput id="file-upload" />
+                <FileInput
+                  id="file-upload"
+                  {...register("petImageFile", { required: true })}
+                />
               </div>
               <Textarea
                 variant="standard"

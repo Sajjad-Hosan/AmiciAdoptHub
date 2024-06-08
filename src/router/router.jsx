@@ -19,6 +19,8 @@ import AdoptedRequest from "../dashBoardPages/AdoptedRequest/AdoptedRequest";
 import AdminUsers from "../dashBoardPages/AdminUsers/AdminUsers";
 import AdminPets from "../dashBoardPages/AdminPets/AdminPets";
 import AdminDonations from "../dashBoardPages/AdminDonations/AdminDonations";
+import PrivateRoute from "../service/PrivateRoute/PrivateRoute";
+import AdminRoute from "../service/AdminRoute/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +40,11 @@ const router = createBrowserRouter([
         path: "/pet_detail/:id",
         loader: ({ params }) =>
           fetch(`http://localhost:1000/pet_info/${params.id}`),
-        element: <PetDetails />,
+        element: (
+          <PrivateRoute>
+            <PetDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/donation_page",
@@ -47,19 +53,28 @@ const router = createBrowserRouter([
       {
         // TODO: Id will be on the path name
         path: "/donation_details/:id",
-        element: <DonationDetails />,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <DonationDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/pet_update/:id",
         loader: ({ params }) =>
           fetch(`http://localhost:1000/pet_info/${params.id}`),
-        element: <PetUpdate />,
+        element: (
+          <PrivateRoute>
+            <PetUpdate />
+          </PrivateRoute>
+        ),
       },
     ],
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: <PrivateRoute><Dashboard /></PrivateRoute>,
     children: [
       // user pages routes
       {
@@ -109,17 +124,30 @@ const router = createBrowserRouter([
       // admin pages routes
       {
         path: "admin_users",
-        element: <AdminUsers />,
+        element: (
+          <AdminRoute>
+            <AdminUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "admin_pets",
         loader: () => fetch("http://localhost:1000/pets_count"),
-        element: <AdminPets />,
+        element: (
+          <AdminRoute>
+            <AdminPets />
+          </AdminRoute>
+        ),
       },
       {
         path: "admin_donations",
         loader: () => fetch("http://localhost:1000/donations_count"),
-        element: <AdminDonations />,
+        element: (
+          <AdminRoute>
+            {" "}
+            <AdminDonations />
+          </AdminRoute>
+        ),
       },
     ],
   },

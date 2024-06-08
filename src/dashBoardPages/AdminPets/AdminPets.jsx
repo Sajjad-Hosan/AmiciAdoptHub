@@ -39,7 +39,6 @@ const AdminPets = () => {
       adopted: bool,
     };
     axiosSecure.patch(`/update_pet_status/${id}`, update).then((res) => {
-      console.log("update", res.data);
       fetchData();
     });
   };
@@ -82,7 +81,6 @@ const AdminPets = () => {
               </thead>
               <tbody>
                 {data.map((item, index) => {
-                  console.log(item._id);
                   const isLast = index === data.length;
                   const classes = isLast
                     ? "p-4"

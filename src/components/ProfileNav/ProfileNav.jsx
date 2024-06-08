@@ -7,8 +7,10 @@ import pro1 from "../../assets/Profile_Pics/profile1.jpg";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "sonner";
 import { VscGear } from "react-icons/vsc";
+import useAdmin from "../../hooks/useAdmin";
 const ProfileNav = () => {
   const { user, signOutUser } = useAuth();
+  const [isAdmin] = useAdmin();
   const handleLogout = () => {
     signOutUser().then(() => {
       toast.success("Logout");
@@ -46,12 +48,14 @@ const ProfileNav = () => {
               <MdOutlineDashboardCustomize /> Dashboard
             </Link>
           </li>
-          <li>
-            {" "}
-            <button className="w-full">
-              <FiUserPlus /> Be a admin
-            </button>
-          </li>
+          {isAdmin ? '' : (
+            <li>
+              {" "}
+              <button className="w-full">
+                <FiUserPlus /> Be a admin
+              </button>
+            </li>
+          )}
           <div className="divider"></div>
           <li>
             <button onClick={handleLogout} className="w-full">
