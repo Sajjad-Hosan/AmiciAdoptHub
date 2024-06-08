@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import img from "../../assets/Images/bruno.jpg";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import StoriesCard from "../StoriesCard/StoriesCard";
 import { MdOutlinePets } from "react-icons/md";
@@ -25,7 +24,7 @@ const CallToAction = () => {
         </h1>
         <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-5">
           {data.slice(0, 3).map((store) => (
-            <StoriesCard key={store._id} storie={store} />
+            <StoriesCard key={store._id} story={store} />
           ))}
         </div>
         <div className="flex gap-5 mt-8 justify-end">
