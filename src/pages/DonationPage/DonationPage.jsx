@@ -65,7 +65,7 @@ const DonationPage = () => {
       <div>
         <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-5 place-items-center">
           {data?.pages?.map((item) =>
-            item.map((list, i) => {
+            item?.map((list, i) => {
               if (list?.length === i + 1) {
                 return (
                   <DonationCard innerRef={ref} key={list._id} donated={list} />

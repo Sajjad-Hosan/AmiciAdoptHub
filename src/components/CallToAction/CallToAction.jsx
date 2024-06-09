@@ -5,6 +5,7 @@ import { MdOutlinePets } from "react-icons/md";
 import { LuPlus } from "react-icons/lu";
 import { useState } from "react";
 import AddStore from "../AddStore/AddStore";
+import { Helmet } from "react-helmet-async";
 const CallToAction = () => {
   const [openModal, setOpenModal] = useState(false);
   const axiosSecure = useAxiosSecure();
@@ -27,13 +28,15 @@ const CallToAction = () => {
             <StoriesCard key={store._id} story={store} />
           ))}
         </div>
-        <div className="flex gap-5 mt-8 justify-end">
-          <button className="btn px-6 btn-outline">See Available Pets</button>
-          <button className="btn px-6 btn-neutral">
+        <div className="flex gap-5 mt-8 justify-center">
+          <button className="btn md:px-6 btn-outline">
+            See Available Pets
+          </button>
+          <button className="btn md:px-6 btn-neutral">
             Adopt Pet <MdOutlinePets />
           </button>
           <button
-            className="btn px-6 btn-neutral"
+            className="btn md:px-6 btn-neutral"
             onClick={() => setOpenModal(true)}
           >
             Add Pet Story <LuPlus />

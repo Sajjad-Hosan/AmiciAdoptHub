@@ -1,4 +1,4 @@
-import { Badge, Button } from "flowbite-react";
+import { Button } from "flowbite-react";
 import {
   List,
   ListItem,
@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading/Loading";
+import { Helmet } from "react-helmet-async";
 const DonationDetails = () => {
   const params = useParams();
   const axiosSecure = useAxiosSecure();
@@ -39,6 +40,9 @@ const DonationDetails = () => {
   } = data;
   return (
     <>
+      <Helmet>
+        <title>Donation Detail | AmiciAdoptHub</title>
+      </Helmet>
       <PaymentModal
         open={openModal}
         setOpen={setOpenModal}

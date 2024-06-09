@@ -16,6 +16,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import { PiTrashBold } from "react-icons/pi";
 const TABLE_HEAD = ["#", "Image", "Name", "email", "", "Action"];
 const AdminUsers = () => {
   const { user } = useAuth();
@@ -43,7 +44,7 @@ const AdminUsers = () => {
         axiosSecure.patch(`/make_admin/${id}?mode=admin`, info).then((res) => {
           console.log(res.data);
           refetch();
-          toast.success('admin created!')
+          toast.success("admin created!");
         });
       }
     });
@@ -69,8 +70,26 @@ const AdminUsers = () => {
       }
     });
   };
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete ?",
+      icon: "warning",
+      showCancelButton: false,
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/user_delete/${id}`, (res) => {
+          console.log(res.data);
+          toast.success('user has removed!')
+        });
+        refetch()
+      }
+    });
+  };
   return (
-    <div className="md:p-10">
+    <div className="p-5 md:p-10">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl">Users</h1>
         <span className="py-3 px-6 border-2 border-gray-400 rounded-lg font-semibold">
@@ -137,7 +156,9 @@ const AdminUsers = () => {
                           |
                         </Typography>
                       </td>
-                      <td className={`space-x-3 ${classes}`}>
+                      <td
+                        className={`space-x-3 ${classes} flex flex-wrap items-center justify-center`}
+                      >
                         {item.block ? (
                           ""
                         ) : (
@@ -170,6 +191,14 @@ const AdminUsers = () => {
                             </IconButton>
                           </Tooltip>
                         )}
+                        <Tooltip content="delete">
+                          <IconButton
+                            variant="text"
+                            onClick={() => handleDelete(item._id)}
+                          >
+                            <PiTrashBold className="text-xl" />
+                          </IconButton>
+                        </Tooltip>
                       </td>
                     </tr>
                   );

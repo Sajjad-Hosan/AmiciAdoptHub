@@ -13,6 +13,7 @@ import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useLoaderData } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 const PetListing = () => {
   const axiosSecure = useAxiosSecure();
   const [openModal, setOpenModal] = useState(false);
@@ -49,6 +50,9 @@ const PetListing = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Pet Listing | AmiciAdoptHub</title>
+      </Helmet>
       <SearchBox open={openModal} setOpen={setOpenModal} />
       {/* -------------------- */}
       <div className="p-10">

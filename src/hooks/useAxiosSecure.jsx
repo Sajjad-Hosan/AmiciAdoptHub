@@ -1,23 +1,17 @@
 import axios from "axios";
-import { signOut } from "firebase/auth";
 import { useEffect } from "react";
+import useAuth from "./useAuth";
+import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:1000",
+  baseURL: "https://amici-adopt-hub-server.vercel.app",
   withCredentials: true,
 });
 
 const useAxiosSecure = () => {
+  const { signOutUser } = useAuth();
+  const navigate = useNavigate();
   useEffect(() => {
-    axiosSecure.interceptors.request.use(
-      function (config) {
-        return config;
-      },
-      function (error) {
-        return Promise.reject(error);
-      }
-    );
-
     axiosSecure.interceptors.response.use(
       function (res) {
         return res;
@@ -28,12 +22,13 @@ const useAxiosSecure = () => {
           error?.response?.status === 401 ||
           error?.response?.status === 403
         ) {
-          console.log("logout");
-          signOut();
+          signOutUser().then(() => {
+            navigate("/login");
+          });
         }
       }
     );
-  }, []);
+  }, [navigate, signOutUser]);
   return axiosSecure;
 };
 export default useAxiosSecure;

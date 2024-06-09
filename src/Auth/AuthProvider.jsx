@@ -40,13 +40,17 @@ const AuthProvider = ({ children }) => {
       const user = { email: currentMe?.email };
       if (currentMe) {
         axios
-          .post("http://localhost:1000/jwt", user, { withCredentials: true })
+          .post("https://amici-adopt-hub-server.vercel.app/jwt", user, {
+            withCredentials: true,
+          })
           .then((jwt) => {
             console.log(jwt?.data);
           });
       } else {
         axios
-          .post("http://localhost:1000/logout", user, { withCredentials: true })
+          .post("https://amici-adopt-hub-server.vercel.app/logout", user, {
+            withCredentials: true,
+          })
           .then((log) => {
             console.log(log);
           });

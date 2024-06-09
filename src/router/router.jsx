@@ -39,7 +39,9 @@ const router = createBrowserRouter([
         // TODO: id will be add on the path name
         path: "/pet_detail/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:1000/pet_info/${params.id}`),
+          fetch(
+            `https://amici-adopt-hub-server.vercel.app/pet_info/${params.id}`
+          ),
         element: (
           <PrivateRoute>
             <PetDetails />
@@ -63,7 +65,9 @@ const router = createBrowserRouter([
       {
         path: "/pet_update/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:1000/pet_info/${params.id}`),
+          fetch(
+            `https://amici-adopt-hub-server.vercel.app/pet_info/${params.id}`
+          ),
         element: (
           <PrivateRoute>
             <PetUpdate />
@@ -74,7 +78,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <PrivateRoute><Dashboard /></PrivateRoute>,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
     children: [
       // user pages routes
       {
@@ -92,13 +100,17 @@ const router = createBrowserRouter([
       {
         path: "pet_details/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:1000/pet_info/${params.id}`),
+          fetch(
+            `https://amici-adopt-hub-server.vercel.app/pet_info/${params.id}`
+          ),
         element: <PetDetails />,
       },
       {
         path: "pet_update/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:1000/pet_info/${params.id}`),
+          fetch(
+            `https://amici-adopt-hub-server.vercel.app/pet_info/${params.id}`
+          ),
         element: <PetUpdate />,
       },
       {
@@ -107,18 +119,22 @@ const router = createBrowserRouter([
       },
       {
         path: "donation_campaign",
-        loader: () => fetch("http://localhost:1000/donations_count"),
+        loader: () =>
+          fetch("https://amici-adopt-hub-server.vercel.app/donations_count"),
         element: <DonationCampaigns />,
       },
       {
         path: "campaign_update/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:1000/donation_info/${params.id}`),
+          fetch(
+            `https://amici-adopt-hub-server.vercel.app/donation_info/${params.id}`
+          ),
         element: <CampaignUpdate />,
       },
       {
         path: "my_donations",
-        loader: () => fetch("http://localhost:1000/donations_count"),
+        loader: () =>
+          fetch("https://amici-adopt-hub-server.vercel.app/donations_count"),
         element: <MyDonations />,
       },
       // admin pages routes
@@ -132,7 +148,8 @@ const router = createBrowserRouter([
       },
       {
         path: "admin_pets",
-        loader: () => fetch("http://localhost:1000/pets_count"),
+        loader: () =>
+          fetch("https://amici-adopt-hub-server.vercel.app/pets_count"),
         element: (
           <AdminRoute>
             <AdminPets />
@@ -141,7 +158,8 @@ const router = createBrowserRouter([
       },
       {
         path: "admin_donations",
-        loader: () => fetch("http://localhost:1000/donations_count"),
+        loader: () =>
+          fetch("https://amici-adopt-hub-server.vercel.app/donations_count"),
         element: (
           <AdminRoute>
             {" "}
