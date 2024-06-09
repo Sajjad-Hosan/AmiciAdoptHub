@@ -150,7 +150,7 @@ const DonationDetails = () => {
                 onClick={() => setOpenModal(true)}
                 disabled={pause || currentDonation > highestDonationAmount}
               >
-                <FaDonate className="mr-2 h-5 w-5" />
+                <FaDonate className="mr-2 text-xl" />
                 Donate now
               </Button>
             </div>

@@ -144,21 +144,21 @@ const AdminDonations = () => {
                         </Typography>
                       </td>
                       <td
-                        className={`space-x-3 ${classes} flex flex-col md:flex-row items-center justify-center`}
+                        className={`space-x-3 ${classes} flex flex-col md:flex-row items-center justify-center py-6`}
                       >
                         <Tooltip content="delete">
                           <IconButton
                             variant="text"
                             onClick={() => handleDelete(item._id)}
                           >
-                            <PiTrashBold className={`h-5 w-5 `} />
+                            <PiTrashBold className={`text-xl `} />
                           </IconButton>
                         </Tooltip>
 
                         <Link to={`/dashboard/pet_update/${item._id}`}>
                           <Tooltip content="update">
                             <IconButton variant="text">
-                              <LuPenSquare className={`h-5 w-5 `} />
+                              <LuPenSquare className={`text-xl `} />
                             </IconButton>
                           </Tooltip>
                         </Link>
@@ -168,7 +168,7 @@ const AdminDonations = () => {
                               variant="text"
                               onClick={() => handlePause(false, item._id)}
                             >
-                              <CgUnblock className={`h-5 w-5 `} />
+                              <CgUnblock className={`text-xl `} />
                             </IconButton>
                           </Tooltip>
                         ) : (
@@ -177,7 +177,7 @@ const AdminDonations = () => {
                               variant="text"
                               onClick={() => handlePause(true, item._id)}
                             >
-                              <CgBlock className={`h-5 w-5 `} />
+                              <CgBlock className={`text-xl `} />
                             </IconButton>
                           </Tooltip>
                         )}

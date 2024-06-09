@@ -50,7 +50,7 @@ const SmNavbar = ({ open, setOpen }) => {
           <Link to="/">
             <ListItem>
               <ListItemPrefix>
-                <HomeIcon className="h-5 w-5" />
+                <HomeIcon className="text-xl" />
               </ListItemPrefix>
               Home
             </ListItem>
@@ -75,7 +75,7 @@ const SmNavbar = ({ open, setOpen }) => {
           <Link to="/profile">
             <ListItem>
               <ListItemPrefix>
-                <UserCircleIcon className="h-5 w-5" />
+                <UserCircleIcon className="text-xl" />
               </ListItemPrefix>
               Profile
             </ListItem>

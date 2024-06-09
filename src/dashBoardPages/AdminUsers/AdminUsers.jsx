@@ -122,8 +122,8 @@ const AdminUsers = () => {
                 {data.map((item, index) => {
                   const isLast = index === data.length - 1;
                   const classes = isLast
-                    ? "p-4"
-                    : "p-4 border-b border-gray-500";
+                    ? "p-0"
+                    : "p-0 border-b border-gray-500";
 
                   return (
                     <tr key={index} className={item.block ? "bg-gray-500" : ""}>
@@ -150,9 +150,7 @@ const AdminUsers = () => {
                         </Typography>
                       </td>
                       <td
-                        className={`space-x-3 ${`${classes} ${
-                          isDark && "text-white"
-                        }`} flex flex-wrap items-center justify-center`}
+                        className={`space-x-3 ${classes}  flex flex-wrap items-center justify-center py-9`}
                       >
                         {item.block ? (
                           ""
@@ -163,7 +161,7 @@ const AdminUsers = () => {
                               disabled={item?.admin}
                               onClick={() => handleMakeAdmin(item._id)}
                             >
-                              <FaHouseUser className={`h-5 w-5 `} />
+                              <FaHouseUser className={`text-xl `} />
                             </IconButton>
                           </Tooltip>
                         )}
@@ -173,7 +171,7 @@ const AdminUsers = () => {
                               variant="text"
                               onClick={() => handleBlockUser(item._id, false)}
                             >
-                              <FiUserCheck className={`h-5 w-5 `} />
+                              <FiUserCheck className={`text-xl `} />
                             </IconButton>
                           </Tooltip>
                         ) : (
@@ -182,7 +180,7 @@ const AdminUsers = () => {
                               variant="text"
                               onClick={() => handleBlockUser(item._id, true)}
                             >
-                              <LuUserX className={`h-5 w-5 `} />
+                              <LuUserX className={`text-xl `} />
                             </IconButton>
                           </Tooltip>
                         )}
@@ -191,7 +189,7 @@ const AdminUsers = () => {
                             variant="text"
                             onClick={() => handleDelete(item._id)}
                           >
-                            <PiTrashBold className={`h-5 w-5 `} />
+                            <PiTrashBold className={`text-xl `} />
                           </IconButton>
                         </Tooltip>
                       </td>
