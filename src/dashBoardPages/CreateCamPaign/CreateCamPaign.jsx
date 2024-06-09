@@ -64,7 +64,7 @@ const CreateCamPaign = () => {
   };
 
   return (
-    <div className="md:p-10">
+    <div className="p-5 md:p-10">
       <h1 className="text-3xl">Create Your Donation Campaign</h1>
       <div className="mt-16">
         <form

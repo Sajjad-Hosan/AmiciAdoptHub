@@ -21,17 +21,15 @@ const AuthProvider = ({ children }) => {
   const axiosSecure = useAxiosSecure();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [moment, setMoment] = useState(false);
+  const type = localStorage.getItem("moment");
+  const [moment, setMoment] = useState(type);
   const [isImage, setIsImage] = useState("");
   const [isPro, setIsPro] = useState(false);
   const [isBlock, setIsBlock] = useState(false);
+  const [isDark, setIsDark] = useState(localStorage.getItem("themeBool"));
 
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
-  useEffect(() => {
-    const type = localStorage.getItem("moment");
-    setMoment(type);
-  }, []);
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentMe) => {
       setLoading(false);
@@ -115,6 +113,7 @@ const AuthProvider = ({ children }) => {
     isImage,
     isPro,
     isBlock,
+    isDark,
     setIsPro,
     setIsImage,
     setMoment,

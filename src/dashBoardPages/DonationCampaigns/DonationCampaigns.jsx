@@ -116,7 +116,7 @@ const DonationCampaigns = () => {
     <>
       <DonationViewModal openModal={open} setOpenModal={setOpen} name={name} />
       {/* ---------------------------------------------------- */}
-      <div className="md:p-10">
+      <div className="p-5 md:p-10">
         <h1 className="text-3xl">My Donation Campaigns</h1>
         <div className="mt-6 flex justify-between gap-20">
           <div className="md:w-72">

@@ -17,9 +17,6 @@ const NavbarCom = () => {
       <li>
         <NavLink to="/donation_page">Donation Campnings</NavLink>
       </li>
-      <li>
-        <NavLink to="/contact">Contact</NavLink>
-      </li>
     </>
   );
   return (

@@ -19,10 +19,10 @@ import Swal from "sweetalert2";
 import { PiTrashBold } from "react-icons/pi";
 const TABLE_HEAD = ["#", "Image", "Name", "email", "", "Action"];
 const AdminUsers = () => {
-  const { user } = useAuth();
+  const { user, isDark } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { data = [], refetch } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["admin_users"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/all_users/?email=${user?.email}`);
       return res.data;
@@ -42,7 +42,6 @@ const AdminUsers = () => {
           admin: true,
         };
         axiosSecure.patch(`/make_admin/${id}?mode=admin`, info).then((res) => {
-          console.log(res.data);
           refetch();
           toast.success("admin created!");
         });
@@ -63,7 +62,6 @@ const AdminUsers = () => {
           block: bool,
         };
         axiosSecure.patch(`/make_admin/${id}?mode=block`, info).then((res) => {
-          console.log(res.data);
           refetch();
           toast.success("user blocked!");
         });
@@ -80,11 +78,10 @@ const AdminUsers = () => {
       confirmButtonText: "Yes, delete!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/user_delete/${id}`, (res) => {
-          console.log(res.data);
-          toast.success('user has removed!')
+        axiosSecure.delete(`/user_delete/${id}`).then(() => {
+          refetch();
+          toast.success("user has removed!");
         });
-        refetch()
       }
     });
   };
@@ -97,7 +94,7 @@ const AdminUsers = () => {
         </span>
       </div>
       <div className="mt-10">
-        <Card className="h-full w-full shadow-none">
+        <Card className="h-full w-full shadow-none bg-transparent text-white">
           <CardBody className="overflow-scroll px-0">
             <table className="w-full table-auto text-left">
               <thead>
@@ -138,21 +135,13 @@ const AdminUsers = () => {
                         </div>
                       </td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
+                        <Typography variant="small" className="font-normal">
                           {item.name}
                         </Typography>
                       </td>
                       <td className={classes}>{item.email}</td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
+                        <Typography variant="small" className="font-normal">
                           |
                         </Typography>
                       </td>
@@ -166,6 +155,7 @@ const AdminUsers = () => {
                             <IconButton
                               variant="text"
                               disabled={item?.admin}
+                              color={isDark ? "white" : ""}
                               onClick={() => handleMakeAdmin(item._id)}
                             >
                               <FaHouseUser className="h-5 w-5" />
@@ -176,6 +166,7 @@ const AdminUsers = () => {
                           <Tooltip content="unblock user">
                             <IconButton
                               variant="text"
+                              color={isDark ? "white" : ""}
                               onClick={() => handleBlockUser(item._id, false)}
                             >
                               <FiUserCheck className="h-5 w-5" />
@@ -185,6 +176,7 @@ const AdminUsers = () => {
                           <Tooltip content="block user">
                             <IconButton
                               variant="text"
+                              color={isDark ? "white" : ""}
                               onClick={() => handleBlockUser(item._id, true)}
                             >
                               <LuUserX className="h-5 w-5" />
@@ -194,6 +186,7 @@ const AdminUsers = () => {
                         <Tooltip content="delete">
                           <IconButton
                             variant="text"
+                            color={isDark ? "white" : ""}
                             onClick={() => handleDelete(item._id)}
                           >
                             <PiTrashBold className="text-xl" />

@@ -34,7 +34,7 @@ const PetDetails = () => {
     <>
       <AdoptMeModal open={openModal} setOpen={setOpenModal} pet={loaderData} />
       {/* ------------------- */}
-      <div className="md:p-10">
+      <div className="p-5 md:p-10">
         <div className="w-full h-[25rem] bg-gray-300 bg-opacity-30 rounded-2xl p-10 flex flex-col items-center justify-center gap-3 relative">
           <div
             className={`${
@@ -74,7 +74,7 @@ const PetDetails = () => {
             </div>
             <div className="overflow-hidden max-w-screen-md rounded-xl mt-5">
               <Table className="bg-base-100 bg-opacity-40">
-                <Table.Body className="divide-y text-black grid md:grid-cols-2 place-items-start">
+                <Table.Body className="text-black grid md:grid-cols-2 place-items-start">
                   <Table.Row>
                     <Table.Cell className="font-semibold">Weight</Table.Cell>
                     <Table.Cell className="font-semibold"></Table.Cell>

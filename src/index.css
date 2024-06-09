@@ -5,17 +5,16 @@
 ::-webkit-scrollbar {
     width: 4px; /* Set the width of the scrollbar */
     height: 4px;
-  }
-  
-  ::-webkit-scrollbar-track {
+}
+
+::-webkit-scrollbar-track {
     background: #f1f1f1; /* Set the background color of the scrollbar track */
-  }
-  
-  ::-webkit-scrollbar-thumb {
+}
+
+::-webkit-scrollbar-thumb {
     background: #888; /* Set the color of the scrollbar thumb */
     border-radius: 6px; /* Add rounded corners to the thumb */
-  }
-
+}
 
 .petCard img {
     transition: all 0.3s;
@@ -57,10 +56,9 @@
     opacity: 1;
 }
 /* date picker css */
-.datePicker{
+.datePicker {
     border: 0;
     border-bottom: 1px solid;
-    /* border-radius: 10px; */
     font-size: 15px;
     font-weight: 600;
     padding: 0 20px;

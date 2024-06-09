@@ -90,7 +90,7 @@ const PetUpdate = () => {
     }
   };
   return (
-    <div className="md:p-10">
+    <div className="p-5 md:p-10">
       <h1 className="text-3xl">Update {petName}</h1>
       <div className="flex flex-col-reverse items-center mt-10">
         <div className="mt-14 card p-5">

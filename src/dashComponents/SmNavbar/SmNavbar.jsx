@@ -25,7 +25,7 @@ import useAdmin from "../../hooks/useAdmin";
 
 const SmNavbar = ({ open, setOpen }) => {
   const [isAdmin] = useAdmin();
-  const { signOutUser } = useAuth();
+  const { signOutUser, isDark } = useAuth();
   const closeDrawer = () => setOpen(false);
   const handleLogout = () => {
     signOutUser().then(() => {
@@ -34,7 +34,11 @@ const SmNavbar = ({ open, setOpen }) => {
   };
   return (
     <>
-      <Drawer open={open} onClose={closeDrawer}>
+      <Drawer
+        open={open}
+        onClose={closeDrawer}
+        className={isDark ? "bg-transparent" : ""}
+      >
         <div className="mb-2 flex items-center justify-between p-4">
           <Title />
         </div>

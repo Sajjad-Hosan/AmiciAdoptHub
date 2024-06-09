@@ -14,6 +14,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useLoaderData } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { Skeleton } from "../../components/Skeleton/Skeleton";
 const PetListing = () => {
   const axiosSecure = useAxiosSecure();
   const [openModal, setOpenModal] = useState(false);
@@ -25,6 +26,7 @@ const PetListing = () => {
     isFetchingNextPage,
     hasNextPage,
     refetch,
+    isLoading,
   } = useInfiniteQuery({
     queryKey: ["petlistings", sort],
     queryFn: async ({ pageParam }) => {
@@ -86,21 +88,17 @@ const PetListing = () => {
             </div>
           </div>
         </div>
-        <div className="">
-          <div className="grid md:grid-cols-3 gap-10 mt-16">
-            {data?.pages?.map((item) =>
-              item.map((list) => {
-                return (
-                  <CardComponent innerRef={ref} key={list._id} pet={list} />
-                );
-              })
-            )}
-          </div>
-          {isFetchingNextPage && (
-            <div>
-              <Spinner className="h-10 w-10 mt-14 mx-auto" />
-            </div>
+        <div className="grid md:grid-cols-3 gap-10 mt-16">
+          {data?.pages?.map((item) =>
+            item.map((list) =>
+              isLoading ? (
+                <Skeleton key={item._id} />
+              ) : (
+                <CardComponent innerRef={ref} key={list._id} pet={list} />
+              )
+            )
           )}
+          {isFetchingNextPage && <Skeleton />}
         </div>
       </div>
     </>

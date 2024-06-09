@@ -34,8 +34,19 @@ const Register = () => {
   const [show, setShow] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
-
+  const regex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   const handleCreate = (log) => {
+    const password = log.password;
+    if (password.length < 6) {
+      return toast.warning("password must be 6 character!");
+    }
+    if (!regex.test(password)) {
+      return toast.warning(
+        "Password must have Upper ,Lower, Number ,Special character!"
+      );
+    }
+
     //TODO: Api use for picture add and then use
     createUser(log.email, log.password)
       .then((res) => {

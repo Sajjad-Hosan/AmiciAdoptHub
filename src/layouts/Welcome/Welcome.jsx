@@ -4,13 +4,17 @@ import img1 from "../../assets/Welcome/welcome.gif";
 import useAuth from "../../hooks/useAuth";
 
 const Welcome = () => {
-  const { setMoment } = useAuth();
+  const { moment, setMoment } = useAuth();
   const handleWelcome = (moment) => {
     setMoment(moment);
     localStorage.setItem("moment", moment);
   };
   return (
-    <div className="p-20 flex flex-col items-center md:flex-row justify-between min-h-screen">
+    <div
+      className={`p-20 flex flex-col items-center md:flex-row justify-between min-h-screen ${
+        moment ? "hidden" : ""
+      }`}
+    >
       <div>
         <h1 className="text-4xl font-semibold flex items-center justify-center gap-4">
           <p className="font-light">Welcome to</p>

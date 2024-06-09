@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PetCard from "../PetCard/PetCard";
-import useAxiosSecure from "../../hooks/useAxiosSecure";const PetsCategory = () => {
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "../Skeleton/Skeleton";
+const PetsCategory = () => {
   const categorys = ["dog", "cat", "rabbit", "snake", "fish", "bird"];
   const [tab, setTab] = useState(0);
   const [tabName, setTabName] = useState("dog");
-  const [data, setData] = useState([]);
   const axiosSecure = useAxiosSecure();
   const handleTab = (i, item) => {
     setTab(i);
     setTabName(item);
   };
-  useEffect(() => {
-    axiosSecure.get(`/pets_category?category=${tabName}`).then((res) => {
-      setData(res.data);
-    });
-  }, [axiosSecure, tabName]);
+  const { data = [], isLoading } = useQuery({
+    queryKey: ["categorys", tabName, axiosSecure],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/pets_category?category=${tabName}`);
+      return res.data;
+    },
+  });
 
   return (
     <div className="mt-20 md:px-10">
@@ -37,6 +41,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";const PetsCategory = () 
         ))}
       </div>
       <div className="mt-16 grid md:grid-cols-3 gap-6 pb-10 ">
+        {isLoading ? <Skeleton /> : ""}
         {data.map((item) => (
           <PetCard key={item._id} details={item} />
         ))}

@@ -22,7 +22,9 @@ const Login = () => {
   const { signInUser } = useAuth();
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-  const { state } = useLocation();
+  const location = useLocation();
+
+  console.log(location);
   const {
     register,
     handleSubmit,
@@ -30,14 +32,14 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const handleRegister = (log) => {
-    console.log(log);
     const email = log.email;
     const password = log.password;
+   
     signInUser(email, password).then((res) => {
       console.log(res);
       toast.success("Login");
       reset();
-      navigate(state || "/");
+      navigate(location.state || "/");
     });
   };
   return (

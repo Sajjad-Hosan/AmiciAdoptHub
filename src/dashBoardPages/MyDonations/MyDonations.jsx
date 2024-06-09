@@ -55,7 +55,7 @@ const MyDonations = () => {
     }
   };
   return (
-    <div className="md:p-10">
+    <div className="p-5 md:p-10">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl">See where have you donated</h1>
         <Badge

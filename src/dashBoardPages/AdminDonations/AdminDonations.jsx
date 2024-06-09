@@ -78,7 +78,7 @@ const AdminDonations = () => {
     });
   };
   return (
-    <div className="md:p-10">
+    <div className="p-5 md:p-10">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl">Donations</h1>
         <span className="py-3 px-6 border-2 border-gray-400 rounded-lg font-semibold">

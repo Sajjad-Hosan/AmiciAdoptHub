@@ -6,6 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import { Helmet } from "react-helmet-async";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
+import { Skeleton } from "../../components/Skeleton/Skeleton";
 
 const DonationPage = () => {
   const { ref, inView } = useInView();
@@ -17,12 +18,13 @@ const DonationPage = () => {
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
+    isLoading,
   } = useInfiniteQuery({
-    queryKey: ["donations", user?.email,sort],
+    queryKey: ["donations", user?.email, sort],
     initialPageParam: 0,
     queryFn: async ({ pageParam }) => {
       const res = await axiosSecure.post(
-        `/donation_campaign?email=${user?.email}&page=${pageParam}`
+        `/donations?email=${user?.email}&page=${pageParam}`
       );
       return res.data;
     },
@@ -40,7 +42,7 @@ const DonationPage = () => {
   }, [inView, hasNextPage, fetchNextPage]);
 
   return (
-    <div className="md:p-10">
+    <div className="p-5 md:p-10">
       <Helmet>
         <title>Donation Page | AAH</title>
       </Helmet>
@@ -65,21 +67,16 @@ const DonationPage = () => {
       <div>
         <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-5 place-items-center">
           {data?.pages?.map((item) =>
-            item?.map((list, i) => {
-              if (list?.length === i + 1) {
-                return (
-                  <DonationCard innerRef={ref} key={list._id} donated={list} />
-                );
-              }
-              return <DonationCard key={list._id} donated={list} />;
-            })
+            item?.map((list, i) =>
+              isLoading ? (
+                <Skeleton key={i} />
+              ) : (
+                <DonationCard innerRef={ref} key={list._id} donated={list} />
+              )
+            )
           )}
         </div>
-        {isFetchingNextPage && (
-          <div>
-            <Spinner className="h-10 w-10 mt-14 mx-auto" />
-          </div>
-        )}
+        {isFetchingNextPage && <Skeleton />}
       </div>
     </div>
   );

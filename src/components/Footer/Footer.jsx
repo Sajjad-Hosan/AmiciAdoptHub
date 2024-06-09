@@ -12,7 +12,7 @@ import {
 const FooterPlat = () => {
   return (
     <>
-      <footer className="w-full bg-white bg-opacity-25 p-8 mt-20 card rounded-3xl">
+      <footer className="w-full bg-base-100 bg-opacity-25 p-8 mt-20 card rounded-3xl">
         <div className="flex flex-col md:flex-row items-center justify-center gap-y-6 gap-x-12 bg-transparent text-center md:justify-between">
           <Title />
           <div className="relative flex flex-col ">
@@ -31,12 +31,12 @@ const FooterPlat = () => {
               <Footer.Icon href="#" icon={BsDribbble} />
             </div>
           </div>
-          <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
+          <ul className="flex flex-wrap items-center gap-y-2 gap-x-8 ">
             <li>
               <Typography
                 as="a"
                 href="#"
-                color="blue-gray"
+                color="gray"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
                 About Us
@@ -46,7 +46,7 @@ const FooterPlat = () => {
               <Typography
                 as="a"
                 href="#"
-                color="blue-gray"
+                color="gray"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
                 License
@@ -56,7 +56,7 @@ const FooterPlat = () => {
               <Typography
                 as="a"
                 href="#"
-                color="blue-gray"
+                color="gray"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
                 Contribute
@@ -66,7 +66,7 @@ const FooterPlat = () => {
               <Typography
                 as="a"
                 href="#"
-                color="blue-gray"
+                color="gray"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
                 Contact Us
@@ -75,7 +75,7 @@ const FooterPlat = () => {
           </ul>
         </div>
         <hr className="my-8 border-blue-gray-50" />
-        <Typography color="blue-gray" className="text-center font-normal">
+        <Typography color="blue" className="text-center font-normal">
           &copy; 2020 AmiciAdoptHub
         </Typography>
       </footer>

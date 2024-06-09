@@ -81,7 +81,7 @@ const CampaignUpdate = () => {
     }
   };
   return (
-    <div className="md:p-10">
+    <div className="p-5 md:p-10">
       <Button
         className="flex items-center gap-3 mb-3"
         onClick={() => navigate(-1)}

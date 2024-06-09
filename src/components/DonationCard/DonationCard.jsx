@@ -4,13 +4,10 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Avatar,
-  Tooltip,
 } from "@material-tailwind/react";
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Helmet } from "react-helmet-async";
 
 const DonationCard = ({ donated, innerRef }) => {
   const {
@@ -18,13 +15,6 @@ const DonationCard = ({ donated, innerRef }) => {
     image,
     maxDonationAmount,
     highestDonationAmount,
-    shortDescription,
-    description,
-    lastDate,
-    userName,
-    userEmail,
-    createDate,
-    createTime,
     pause,
     currentDonation,
     petName,
@@ -44,7 +34,7 @@ const DonationCard = ({ donated, innerRef }) => {
             className="h-full w-full object-cover object-center"
           />
         </CardHeader>
-        <CardBody className="space-y-2">
+        <CardBody className="space-y-2 w-full">
           <Typography variant="h2" color="blue-gray" className="capitalize">
             {petName}
           </Typography>
@@ -69,7 +59,9 @@ const DonationCard = ({ donated, innerRef }) => {
         <CardFooter className="flex items-center justify-end">
           {/* TODO: id will ne added on the path name */}
           <Link to={`/donation_details/${_id}`}>
-            <Button color="dark" disabled={pause}>View Detail</Button>
+            <Button color="dark" disabled={pause}>
+              View Detail
+            </Button>
           </Link>
         </CardFooter>
       </Card>
