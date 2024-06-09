@@ -74,7 +74,7 @@ const AdoptedRequest = () => {
                     >
                       <Typography
                         variant="small"
-                        //   color="blue-gray"
+                        //
                         className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                       >
                         {head}{" "}
@@ -100,48 +100,28 @@ const AdoptedRequest = () => {
                         <Avatar src={item.image} alt="avatar" size="lg" />
                       </td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
+                        <Typography variant="small" className="font-normal">
                           {item.petName}
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
+                        <Typography variant="small" className="font-normal">
                           {item.userName}
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
+                        <Typography variant="small" className="font-normal">
                           {item.userEmail}
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
+                        <Typography variant="small" className="font-normal">
                           {item.userPhone}
                         </Typography>
                       </td>
                       <td className={classes}>
                         {" "}
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
+                        <Typography variant="small" className="font-normal">
                           {item.userAddress}
                         </Typography>
                       </td>
@@ -176,11 +156,7 @@ const AdoptedRequest = () => {
             ""
           ) : (
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-              <Typography
-                variant="small"
-                color="blue-gray"
-                className="font-normal"
-              >
+              <Typography variant="small" className="font-normal">
                 Page 1 of 10
               </Typography>
               <div className="flex gap-2">

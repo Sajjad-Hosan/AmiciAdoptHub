@@ -35,7 +35,7 @@ const DonationCard = ({ donated, innerRef }) => {
           />
         </CardHeader>
         <CardBody className="space-y-2 w-full">
-          <Typography variant="h2" color="blue-gray" className="capitalize">
+          <Typography variant="h2" className="capitalize">
             {petName}
           </Typography>
           <span className="flex justify-between">

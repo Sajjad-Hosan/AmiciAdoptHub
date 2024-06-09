@@ -36,7 +36,6 @@ const FooterPlat = () => {
               <Typography
                 as="a"
                 href="#"
-                color="gray"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
                 About Us
@@ -46,7 +45,6 @@ const FooterPlat = () => {
               <Typography
                 as="a"
                 href="#"
-                color="gray"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
                 License
@@ -56,7 +54,6 @@ const FooterPlat = () => {
               <Typography
                 as="a"
                 href="#"
-                color="gray"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
                 Contribute
@@ -66,7 +63,6 @@ const FooterPlat = () => {
               <Typography
                 as="a"
                 href="#"
-                color="gray"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
                 Contact Us

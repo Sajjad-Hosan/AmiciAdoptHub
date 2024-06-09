@@ -67,7 +67,7 @@ const ImageModal = ({ openModal, setOpenModal }) => {
         popup
       >
         <Modal.Header className="px-8 pt-5">
-          <Typography variant="h6" className="capitalize">
+          <Typography variant="p" className="capitalize">
             choose your profile picture
           </Typography>
         </Modal.Header>
@@ -99,7 +99,7 @@ const ImageModal = ({ openModal, setOpenModal }) => {
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Typography variant="h6" className="mr-8 capitalize">
+          <Typography variant="p" className="mr-8 capitalize">
             or choses your own picture
           </Typography>
           <div className="flex justify-center gap-4">

@@ -83,10 +83,8 @@ const DonationDetails = () => {
                 <ListItem>
                   <div className="w-full">
                     <div className="mb-2 flex items-center justify-between gap-4">
-                      <Typography color="blue-gray" variant="h6">
-                        Completed
-                      </Typography>
-                      <Typography color="blue-gray" variant="h6">
+                      <Typography variant="p">Completed</Typography>
+                      <Typography variant="p">
                         {currentDonation > maxDonationAmount
                           ? (currentDonation / highestDonationAmount).toFixed(
                               3

@@ -58,11 +58,7 @@ const MyDonations = () => {
     <div className="p-5 md:p-10">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl">See where have you donated</h1>
-        <Badge
-          color="gray"
-          className="px-8 py-3 rounded-lg bg-base-300"
-          size="lg"
-        >
+        <Badge className="px-8 py-3 rounded-lg bg-base-300" size="lg">
           Donated: {data?.length}
         </Badge>
       </div>
@@ -79,7 +75,7 @@ const MyDonations = () => {
                     >
                       <Typography
                         variant="small"
-                        //   color="blue-gray"
+                        //
                         className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                       >
                         {head}{" "}
@@ -109,11 +105,7 @@ const MyDonations = () => {
                         </div>
                       </td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
+                        <Typography variant="small" className="font-normal">
                           {petName}
                         </Typography>
                       </td>
@@ -138,11 +130,7 @@ const MyDonations = () => {
             ""
           ) : (
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-              <Typography
-                variant="small"
-                color="blue-gray"
-                className="font-normal"
-              >
+              <Typography variant="small" className="font-normal">
                 Page {current} of {numberOfPages - 1}
               </Typography>
               <div className="flex gap-2">

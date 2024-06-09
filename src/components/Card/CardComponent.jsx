@@ -28,7 +28,6 @@ const CardComponent = ({ pet, innerRef }) => {
             {petName || <Skeleton count={5} />}
           </h1>
           <Badge
-            color="gray"
             icon={FaLocationDot || <Skeleton count={5} />}
             className="px-4 py-2"
           >

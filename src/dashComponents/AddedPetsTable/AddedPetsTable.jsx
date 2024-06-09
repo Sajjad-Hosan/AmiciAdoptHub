@@ -53,7 +53,7 @@ const AddedPetsTable = ({ myPets, petRef }) => {
                   <th key={index} className="cursor-pointer border-y py-4 px-6">
                     <Typography
                       variant="small"
-                      //   color="blue-gray"
+                      //
                       className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                     >
                       {head}{" "}
@@ -83,21 +83,13 @@ const AddedPetsTable = ({ myPets, petRef }) => {
                       </div>
                     </td>
                     <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
+                      <Typography variant="small" className="font-normal">
                         {item.petName}
                       </Typography>
                     </td>
                     <td className={classes}>category</td>
                     <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
+                      <Typography variant="small" className="font-normal">
                         {item.adopted ? (
                           <Badge className="py-3 capitalize" color="green">
                             adopted
@@ -155,11 +147,7 @@ const AddedPetsTable = ({ myPets, petRef }) => {
           ""
         ) : (
           <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-            <Typography
-              variant="small"
-              color="blue-gray"
-              className="font-normal"
-            >
+            <Typography variant="small" className="font-normal">
               Page 1 of 10
             </Typography>
             <div className="flex gap-2">

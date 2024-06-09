@@ -34,7 +34,7 @@ const Login = () => {
   const handleRegister = (log) => {
     const email = log.email;
     const password = log.password;
-   
+
     signInUser(email, password).then((res) => {
       console.log(res);
       toast.success("Login");
@@ -50,19 +50,15 @@ const Login = () => {
       <div className="card border border-orange-200  flex flex-col-reverse md:flex-row justify-between gap-6 overflow-hidden">
         <div className="p-10 w-full">
           <Card color="transparent" shadow={false}>
-            <Typography variant="h4" color="blue-gray">
-              Login
-            </Typography>
-            <Typography color="gray" className="mt-1 font-normal">
-              Welcome back
-            </Typography>
+            <Typography variant="h4">Login</Typography>
+            <Typography className="mt-1 font-normal">Welcome back</Typography>
             <form
               className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-full"
               onSubmit={handleSubmit(handleRegister)}
             >
               <div className="mb-1 flex flex-col gap-4">
                 <div className="">
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
+                  <Typography variant="p" className="mb-3">
                     Your Email
                   </Typography>
                   {errors.email?.type === "required" && (
@@ -81,7 +77,7 @@ const Login = () => {
                   />
                 </div>
                 <div className="relative">
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
+                  <Typography variant="p" className="mb-3">
                     Password
                   </Typography>
                   {errors.password?.type === "required" && (
@@ -111,7 +107,6 @@ const Login = () => {
                 label={
                   <Typography
                     variant="small"
-                    color="gray"
                     className="flex items-center font-normal"
                   >
                     Remember me
@@ -136,7 +131,7 @@ const Login = () => {
             </button>
           </div>
         </div>
-        <div className="md:w-3/4 bg-orange-200 px-10 flex flex-col  justify-center p-10">
+        <div className="md:w-3/4 bg-gray-900 px-10 flex flex-col  justify-center p-10">
           <h1 className="text-2xl">
             We have brought many new friends for you on -
           </h1>

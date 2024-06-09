@@ -42,12 +42,8 @@ const Dashboard = () => {
       <Profile open={openPro} handleOpen={handleOpenPro} />
       <div className="flex flex-col md:flex-row">
         <div className="flex md:hidden justify-between z-20 items-center px-6 py-3">
-          <Button
-            variant="outlined"
-            onClick={openDrawer}
-            color={isDark ? "white" : ""}
-          >
-            <HiOutlineViewGrid className="text-lg" />
+          <Button variant="outlined" color="orange" onClick={openDrawer}>
+            <HiOutlineViewGrid className="text-lg " />
           </Button>
           <Title />
         </div>

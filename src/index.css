@@ -2,17 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    color: orange;
+}
 ::-webkit-scrollbar {
     width: 4px; /* Set the width of the scrollbar */
     height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Set the background color of the scrollbar track */
+    background: #595959; /* Set the background color of the scrollbar track */
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #888; /* Set the color of the scrollbar thumb */
+    background: #d8d5d5; /* Set the color of the scrollbar thumb */
     border-radius: 6px; /* Add rounded corners to the thumb */
 }
 

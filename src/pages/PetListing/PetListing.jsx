@@ -90,13 +90,15 @@ const PetListing = () => {
         </div>
         <div className="grid md:grid-cols-3 gap-10 mt-16">
           {data?.pages?.map((item) =>
-            item.map((list) =>
-              isLoading ? (
-                <Skeleton key={item._id} />
-              ) : (
-                <CardComponent innerRef={ref} key={list._id} pet={list} />
-              )
-            )
+            item.map((list, i) => {
+              isLoading && <Skeleton key={item._id} />;
+              if (list.length === i+1) {
+                return (
+                  <CardComponent key={list._id} pet={list} />
+                );
+              }
+              return <CardComponent innerRef={ref} key={list._id} pet={list} />;
+            })
           )}
           {isFetchingNextPage && <Skeleton />}
         </div>

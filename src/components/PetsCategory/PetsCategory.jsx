@@ -41,10 +41,13 @@ const PetsCategory = () => {
         ))}
       </div>
       <div className="mt-16 grid md:grid-cols-3 gap-6 pb-10 ">
-        {isLoading ? <Skeleton /> : ""}
-        {data.map((item) => (
-          <PetCard key={item._id} details={item} />
-        ))}
+        {data.map((item) =>
+          isLoading ? (
+            <Skeleton key={item._id} />
+          ) : (
+            <PetCard key={item._id} details={item} />
+          )
+        )}
       </div>
     </div>
   );

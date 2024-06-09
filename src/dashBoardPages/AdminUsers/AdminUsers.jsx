@@ -94,7 +94,11 @@ const AdminUsers = () => {
         </span>
       </div>
       <div className="mt-10">
-        <Card className="h-full w-full shadow-none bg-transparent text-white">
+        <Card
+          className={`h-full w-full shadow-none ${
+            isDark ? "bg-transparent" : "text-black"
+          }`}
+        >
           <CardBody className="overflow-scroll px-0">
             <table className="w-full table-auto text-left">
               <thead>
@@ -102,11 +106,11 @@ const AdminUsers = () => {
                   {TABLE_HEAD.map((head, index) => (
                     <th
                       key={index}
-                      className="cursor-pointer border-y py-4 px-6"
+                      className={`cursor-pointer border-y border-gray-500  py-4 px-6`}
                     >
                       <Typography
                         variant="small"
-                        className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                        className={`flex items-center justify-between gap-2 font-normal leading-none opacity-70`}
                       >
                         {head}{" "}
                       </Typography>
@@ -119,34 +123,36 @@ const AdminUsers = () => {
                   const isLast = index === data.length - 1;
                   const classes = isLast
                     ? "p-4"
-                    : "p-4 border-b border-blue-gray-50";
+                    : "p-4 border-b border-gray-500";
 
                   return (
                     <tr key={index} className={item.block ? "bg-gray-500" : ""}>
-                      <td className={classes}>{index}</td>
-                      <td className={classes}>
+                      <td className={`${classes} `}>{index}</td>
+                      <td className={`${classes} `}>
                         <div className="flex items-center gap-3">
                           <Avatar
                             src={item.image}
                             alt={item.name}
-                            size="md"
+                            size="lg"
                             variant="rounded"
                           />
                         </div>
                       </td>
-                      <td className={classes}>
+                      <td className={`${classes} `}>
                         <Typography variant="small" className="font-normal">
                           {item.name}
                         </Typography>
                       </td>
-                      <td className={classes}>{item.email}</td>
-                      <td className={classes}>
+                      <td className={`${classes} `}>{item.email}</td>
+                      <td className={`${classes} `}>
                         <Typography variant="small" className="font-normal">
                           |
                         </Typography>
                       </td>
                       <td
-                        className={`space-x-3 ${classes} flex flex-wrap items-center justify-center`}
+                        className={`space-x-3 ${`${classes} ${
+                          isDark && "text-white"
+                        }`} flex flex-wrap items-center justify-center`}
                       >
                         {item.block ? (
                           ""
@@ -155,10 +161,9 @@ const AdminUsers = () => {
                             <IconButton
                               variant="text"
                               disabled={item?.admin}
-                              color={isDark ? "white" : ""}
                               onClick={() => handleMakeAdmin(item._id)}
                             >
-                              <FaHouseUser className="h-5 w-5" />
+                              <FaHouseUser className={`h-5 w-5 `} />
                             </IconButton>
                           </Tooltip>
                         )}
@@ -166,30 +171,27 @@ const AdminUsers = () => {
                           <Tooltip content="unblock user">
                             <IconButton
                               variant="text"
-                              color={isDark ? "white" : ""}
                               onClick={() => handleBlockUser(item._id, false)}
                             >
-                              <FiUserCheck className="h-5 w-5" />
+                              <FiUserCheck className={`h-5 w-5 `} />
                             </IconButton>
                           </Tooltip>
                         ) : (
                           <Tooltip content="block user">
                             <IconButton
                               variant="text"
-                              color={isDark ? "white" : ""}
                               onClick={() => handleBlockUser(item._id, true)}
                             >
-                              <LuUserX className="h-5 w-5" />
+                              <LuUserX className={`h-5 w-5 `} />
                             </IconButton>
                           </Tooltip>
                         )}
                         <Tooltip content="delete">
                           <IconButton
                             variant="text"
-                            color={isDark ? "white" : ""}
                             onClick={() => handleDelete(item._id)}
                           >
-                            <PiTrashBold className="text-xl" />
+                            <PiTrashBold className={`h-5 w-5 `} />
                           </IconButton>
                         </Tooltip>
                       </td>
@@ -203,18 +205,22 @@ const AdminUsers = () => {
             ""
           ) : (
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-              <Typography
-                variant="small"
-                color="blue-gray"
-                className="font-normal"
-              >
+              <Typography variant="small" className="font-normal">
                 Page 1 of 10
               </Typography>
               <div className="flex gap-2">
-                <Button variant="outlined" size="sm">
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  className={`${isDark ? "text-white" : "text-black"}`}
+                >
                   Previous
                 </Button>
-                <Button variant="outlined" size="sm">
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  className={`${isDark ? "text-white" : "text-black"}`}
+                >
                   Next
                 </Button>
               </div>

@@ -143,7 +143,6 @@ const DonationCampaigns = () => {
                       >
                         <Typography
                           variant="small"
-                          color="blue-gray"
                           className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                         >
                           {head}{" "}
@@ -189,20 +188,12 @@ const DonationCampaigns = () => {
                             </div>
                           </td>
                           <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
+                            <Typography variant="small" className="font-normal">
                               {petName}
                             </Typography>
                           </td>
                           <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
+                            <Typography variant="small" className="font-normal">
                               {maxDonationAmount} $
                             </Typography>
                           </td>
@@ -267,11 +258,7 @@ const DonationCampaigns = () => {
               ""
             ) : (
               <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal"
-                >
+                <Typography variant="small" className="font-normal">
                   Page {current} of {numberOfPages - 1}
                 </Typography>
                 <div className="flex gap-2">

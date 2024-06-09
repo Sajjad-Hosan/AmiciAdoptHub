@@ -16,8 +16,10 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 const TABLE_HEAD = ["#", "Image", "Name", "email", "", "Action"];
 const AdminDonations = () => {
+  const { isDark } = useAuth();
   const loader = useLoaderData();
   const axiosSecure = useAxiosSecure();
   //
@@ -86,7 +88,11 @@ const AdminDonations = () => {
         </span>
       </div>
       <div className="mt-10">
-        <Card className="h-full w-full shadow-none">
+        <Card
+          className={`h-full w-full shadow-none ${
+            isDark ? "bg-transparent" : "text-black"
+          }`}
+        >
           <CardBody className="overflow-scroll px-0">
             <table className="w-full table-auto text-left">
               <thead>
@@ -94,7 +100,7 @@ const AdminDonations = () => {
                   {TABLE_HEAD.map((head, index) => (
                     <th
                       key={index}
-                      className="cursor-pointer border-y py-4 px-6"
+                      className={`cursor-pointer border-y border-gray-500  py-4 px-6`}
                     >
                       <Typography
                         variant="small"
@@ -111,15 +117,12 @@ const AdminDonations = () => {
                   const isLast = index === data.length;
                   const classes = isLast
                     ? "p-4"
-                    : "p-4 border-b border-blue-gray-50";
+                    : "p-4 border-b border-gray-500";
 
                   return (
-                    <tr
-                      key={index}
-                      className={item.pause ? "bg-gray-200" : ""}
-                    >
-                      <td className={classes}>{index + 1}</td>
-                      <td className={classes}>
+                    <tr key={index} className={item.pause ? "bg-gray-200" : ""}>
+                      <td className={`${classes} `}>{index + 1}</td>
+                      <td className={`${classes} `}>
                         <div className="flex items-center gap-3">
                           <Avatar
                             src={item.image}
@@ -129,39 +132,33 @@ const AdminDonations = () => {
                           />
                         </div>
                       </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
+                      <td className={`${classes} `}>
+                        <Typography variant="small" className="font-normal">
                           {item.petName}
                         </Typography>
                       </td>
-                      <td className={classes}>${item.currentDonation}</td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
+                      <td className={`${classes} `}>${item.currentDonation}</td>
+                      <td className={`${classes} `}>
+                        <Typography variant="small" className="font-normal">
                           |
                         </Typography>
                       </td>
-                      <td className={`space-x-3 ${classes}`}>
+                      <td
+                        className={`space-x-3 ${classes} flex flex-col md:flex-row items-center justify-center`}
+                      >
                         <Tooltip content="delete">
                           <IconButton
                             variant="text"
                             onClick={() => handleDelete(item._id)}
                           >
-                            <PiTrashBold className="text-xl" />
+                            <PiTrashBold className={`h-5 w-5 `} />
                           </IconButton>
                         </Tooltip>
 
                         <Link to={`/dashboard/pet_update/${item._id}`}>
                           <Tooltip content="update">
                             <IconButton variant="text">
-                              <LuPenSquare className="text-xl" />
+                              <LuPenSquare className={`h-5 w-5 `} />
                             </IconButton>
                           </Tooltip>
                         </Link>
@@ -171,7 +168,7 @@ const AdminDonations = () => {
                               variant="text"
                               onClick={() => handlePause(false, item._id)}
                             >
-                              <CgUnblock className="text-xl" />
+                              <CgUnblock className={`h-5 w-5 `} />
                             </IconButton>
                           </Tooltip>
                         ) : (
@@ -180,7 +177,7 @@ const AdminDonations = () => {
                               variant="text"
                               onClick={() => handlePause(true, item._id)}
                             >
-                              <CgBlock className="text-xl" />
+                              <CgBlock className={`h-5 w-5 `} />
                             </IconButton>
                           </Tooltip>
                         )}
@@ -195,17 +192,14 @@ const AdminDonations = () => {
             ""
           ) : (
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-              <Typography
-                variant="small"
-                color="blue-gray"
-                className="font-normal"
-              >
+              <Typography variant="small" className="font-normal">
                 Page {current} of {numberOfPages - 1}
               </Typography>
               <div className="flex gap-2">
                 <Button
                   variant="outlined"
                   size="sm"
+                  className={`${isDark ? "text-white" : "text-black"}`}
                   onClick={() => setCurrent((val) => val - 1)}
                   disabled={current <= 0}
                 >
@@ -214,6 +208,7 @@ const AdminDonations = () => {
                 <Button
                   variant="outlined"
                   size="sm"
+                  className={`${isDark ? "text-white" : "text-black"}`}
                   onClick={() => setCurrent((val) => val + 1)}
                   disabled={numberOfPages <= current}
                 >

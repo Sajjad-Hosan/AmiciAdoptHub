@@ -94,10 +94,8 @@ const Register = () => {
         <div className="card border border-orange-200  flex flex-col-reverse md:flex-row-reverse justify-between gap-6 overflow-hidden">
           <div className="p-10 w-full">
             <Card color="transparent" shadow={false}>
-              <Typography variant="h4" color="blue-gray">
-                Sign Up
-              </Typography>
-              <Typography color="gray" className="mt-1 font-normal">
+              <Typography variant="h4">Sign Up</Typography>
+              <Typography className="mt-1 font-normal">
                 Nice to meet you! Enter your details to register.
               </Typography>
               <form
@@ -122,9 +120,7 @@ const Register = () => {
                 </div>
                 <div className="flex flex-col gap-3">
                   <div className="">
-                    <Typography variant="h6" color="blue-gray">
-                      Your Name
-                    </Typography>
+                    <Typography variant="p">Your Name</Typography>
                     {errors.username?.type === "required" && (
                       <p role="alert" className="text-red-500 capitalize my-1">
                         username is required
@@ -141,9 +137,7 @@ const Register = () => {
                     />
                   </div>
                   <div className="">
-                    <Typography variant="h6" color="blue-gray">
-                      Your Email
-                    </Typography>
+                    <Typography variant="p">Your Email</Typography>
                     {errors.email?.type === "required" && (
                       <p role="alert" className="text-red-500 capitalize my-1">
                         email is required
@@ -160,9 +154,7 @@ const Register = () => {
                     />
                   </div>
                   <div className="relative">
-                    <Typography variant="h6" color="blue-gray">
-                      Password
-                    </Typography>
+                    <Typography variant="p">Password</Typography>
                     {errors.password?.type === "required" && (
                       <p role="alert" className="text-red-500 capitalize my-1">
                         password is required
@@ -190,7 +182,6 @@ const Register = () => {
                   label={
                     <Typography
                       variant="small"
-                      color="gray"
                       className="flex items-center font-normal"
                     >
                       I agree the
@@ -210,7 +201,7 @@ const Register = () => {
               </form>
             </Card>
           </div>
-          <div className="md:w-3/4 bg-orange-200 px-10 flex flex-col  justify-center p-10">
+          <div className="md:w-3/4 bg-gray-900 px-10 flex flex-col  justify-center p-10">
             <h1 className="text-2xl">Discover the world of pets with us</h1>
             <Title />
             <img src={login} alt="" className="w-full h-3/4" />
