@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:1000",
+  baseURL: "https://amici-adopt-hub-server.vercel.app",
   withCredentials: true,
 });
 
