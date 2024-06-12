@@ -31,7 +31,7 @@ const MyDonations = () => {
     queryKey: ["mydonations", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.post(
-        `/donations?email=${user?.email}&page=${current}`
+        `/donations_user?email=${user?.email}&page=${current}`
       );
       return res.data;
     },

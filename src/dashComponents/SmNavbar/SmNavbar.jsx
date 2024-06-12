@@ -37,20 +37,19 @@ const SmNavbar = ({ open, setOpen }) => {
       <Drawer
         open={open}
         onClose={closeDrawer}
-        className={isDark ? "bg-transparent" : ""}
       >
         <div className="mb-2 flex items-center justify-between p-4">
           <Title />
         </div>
         <hr className="my-2 border-blue-gray-50" />
 
+        <List className="px-5">
         {isAdmin ? <AdminNav /> : <UserNav />}
-        <List>
           <hr className="my-2 border-blue-gray-50" />
           <Link to="/">
             <ListItem>
               <ListItemPrefix>
-                <HomeIcon className="text-xl" />
+                <HomeIcon className="w-5 h-5" />
               </ListItemPrefix>
               Home
             </ListItem>
@@ -75,7 +74,7 @@ const SmNavbar = ({ open, setOpen }) => {
           <Link to="/profile">
             <ListItem>
               <ListItemPrefix>
-                <UserCircleIcon className="text-xl" />
+                <UserCircleIcon className="w-5 h-5" />
               </ListItemPrefix>
               Profile
             </ListItem>

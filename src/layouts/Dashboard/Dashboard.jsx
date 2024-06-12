@@ -42,16 +42,14 @@ const Dashboard = () => {
       <Profile open={openPro} handleOpen={handleOpenPro} />
       <div className="flex flex-col md:flex-row">
         <div className="flex md:hidden justify-between z-20 items-center px-6 py-3">
-          <Button variant="outlined" color="orange" onClick={openDrawer}>
+          <Button variant="outlined" onClick={openDrawer}>
             <HiOutlineViewGrid className="text-lg " />
           </Button>
           <Title />
         </div>
         <SmNavbar open={open} setOpen={setOpen} />
         <Card
-          className={`w-full max-w-[15rem] p-3 border-r-2 rounded-none overflow-hidden hidden md:flex ${
-            isDark ? "bg-transparent border-none" : ""
-          }`}
+          className={`w-full max-w-[15rem] p-3 border-r-2 rounded-none overflow-hidden hidden md:flex `}
         >
           <div className="mb-2 flex items-center gap-4 p-4">
             <Title />
@@ -62,7 +60,7 @@ const Dashboard = () => {
             <Link to="/">
               <ListItem>
                 <ListItemPrefix>
-                  <HomeIcon className="text-xl" />
+                  <HomeIcon className="w-5 h-5" />
                 </ListItemPrefix>
                 Home
               </ListItem>
@@ -86,7 +84,7 @@ const Dashboard = () => {
             <hr />
             <ListItem onClick={handleOpenPro}>
               <ListItemPrefix>
-                <UserCircleIcon className="text-xl" />
+                <UserCircleIcon className="w-5 h-5" />
               </ListItemPrefix>
               Profile
             </ListItem>
