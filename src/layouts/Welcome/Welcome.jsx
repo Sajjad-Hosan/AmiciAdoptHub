@@ -12,7 +12,7 @@ const Welcome = () => {
   };
   return (
     <div
-      className={`p-10 md:p-20 flex flex-col-reverse items-center md:flex-row justify-between min-h-screen ${
+      className={`p-10 md:p-20 flex flex-col-reverse items-center md:flex-row justify-between md:min-h-screen ${
         moment ? "hidden" : ""
       }`}
     >
