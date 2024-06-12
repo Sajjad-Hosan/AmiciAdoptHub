@@ -1,9 +1,11 @@
 import { FaUser } from "react-icons/fa6";
+import { CgMenuRightAlt } from "react-icons/cg";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import ProfileNav from "../ProfileNav/ProfileNav";
 import Title from "../Title/Title";
 
+// NavbarComponent
 const NavbarCom = () => {
   const { user } = useAuth();
   const navList = (
@@ -25,20 +27,7 @@ const NavbarCom = () => {
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="text-xl"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
+              <CgMenuRightAlt className="text-xl" />
             </div>
             <ul
               tabIndex={0}
