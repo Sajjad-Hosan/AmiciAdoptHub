@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 import img1 from "../../assets/Welcome/welcome.gif";
 import useAuth from "../../hooks/useAuth";
+import Title from "../../components/Title/Title";
 
 const Welcome = () => {
   const { moment, setMoment } = useAuth();
@@ -11,17 +12,16 @@ const Welcome = () => {
   };
   return (
     <div
-      className={`p-20 flex flex-col items-center md:flex-row justify-between min-h-screen ${
+      className={`p-10 md:p-20 flex flex-col-reverse items-center md:flex-row justify-between min-h-screen ${
         moment ? "hidden" : ""
       }`}
     >
-      <div>
+      <div className="text-center">
         <h1 className="text-4xl font-semibold flex items-center justify-center gap-4">
-          <p className="font-light">Welcome to</p>
-          <img src="/logo.png" alt="" className="w-12" />
-          AmiciAdoptHub
+          <p className="font-light text-[18px]">Welcome to</p>
+         <Title size="2xl"/>
         </h1>
-        <p className="capitalize md:w-3/3 text-center mt-5 leading-7 font-semibold text-gray-400">
+        <p className="capitalize md:w-3/3 text-center mt-5 leading-7 font-light text-gray-400">
           Here you will meet your new friend or you can go home with a new
           friend.Because,you will find many category friend here.and We try our
           best to have a good relationship with people and animals. Because we
@@ -38,7 +38,7 @@ const Welcome = () => {
         </Link>
       </div>
       <div className="w-full h-[300px]">
-        <img src={img1} className="h-full" />
+        <img src={img1} className="h-full mx-auto" />
       </div>
     </div>
   );
