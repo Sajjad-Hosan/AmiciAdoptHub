@@ -1,14 +1,13 @@
-# Humanity Platform
+# AmiciAdoptHub
 
 A Platform where You can Find What Good Work You Want To Do For People.
 
 ## Demo
 
-- Live Link - https://humanityhelpersplatform.web.app
+- Live Link - https://amiciadopthub.web.app/
 
 ## Features
 
-- Light/dark mode toggle
 - Live previews
 - Private mode
 
