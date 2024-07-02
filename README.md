@@ -1,8 +1,38 @@
-# React + Vite
+# Humanity Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Platform where You can Find What Good Work You Want To Do For People.
 
-Currently, two official plugins are available:
+## Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Live Link - https://humanityhelpersplatform.web.app
+
+## Features
+
+- Light/dark mode toggle
+- Live previews
+- Private mode
+
+## Package Usage
+
+- react-router-dom
+- tailwindcss
+- daisyui
+- animate.css
+- axios
+- firebase
+- flowbite-react
+- framer-motion
+- prop-types
+- react-awesome-reveal
+- react-datepicker
+- react-helmet-async
+- react-hot-toast
+- react-icons
+- react-simple-typewriter
+- react-toastify
+- sweetalert2
+- swiper
+
+## Support
+
+For support, email s4jj4dh034n@gmail.com or join our Slack channel.
