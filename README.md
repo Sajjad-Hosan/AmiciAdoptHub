@@ -2,6 +2,11 @@
 
 A Platform where You can Find What Good Work You Want To Do For People.
 
+## Screenshot
+![App Screenshot](https://i.ibb.co/KDKBP4S/Amici-Adopt-Hub.png)
+
+
+
 ## Demo
 
 - Live Link - https://amiciadopthub.web.app/
